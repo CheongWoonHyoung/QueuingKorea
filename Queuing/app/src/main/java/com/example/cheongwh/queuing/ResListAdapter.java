@@ -49,7 +49,7 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
             holder.res_image = (ImageView) v.findViewById(R.id.res_image);
             holder.res_name = (TextView) v.findViewById(R.id.res_name);
             holder.res_cuisine = (TextView) v.findViewById(R.id.res_cuisine);
-            //holder.res_distance = (TextView) v.findViewById(R.id.res_distance);
+            holder.res_distance = (TextView) v.findViewById(R.id.res_distance);
             holder.res_linenum = (TextView) v.findViewById(R.id.res_linenum);
 
             v.setTag(holder);
