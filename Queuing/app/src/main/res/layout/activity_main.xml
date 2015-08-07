@@ -10,7 +10,7 @@
         android:layout_height = "fill_parent"
         >
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/toolbar_main"
             android:layout_height="?actionBarSize"
             android:layout_width="fill_parent"
             android:background="@color/ColorPrimary"
@@ -63,9 +63,11 @@
 
     </LinearLayout>
     <FrameLayout
+        android:id="@+id/rDrawer"
         android:layout_gravity= "end"
         android:layout_width= "270.0dip"
-        android:layout_height="fill_parent">
+        android:layout_height="fill_parent"
+        android:background="#123145">
 
     </FrameLayout>
 </android.support.v4.widget.DrawerLayout>

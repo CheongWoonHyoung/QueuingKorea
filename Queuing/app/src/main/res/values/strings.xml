@@ -20,4 +20,6 @@
     <string name="confirm_sample_party">3</string>
     <string name="confirm_sample_line"></string>
     <string name="confirm_message">알리기</string>
+    <string name="drawer_open">OPEN</string>
+    <string name="drawer_close">CLOSE</string>
 </resources>

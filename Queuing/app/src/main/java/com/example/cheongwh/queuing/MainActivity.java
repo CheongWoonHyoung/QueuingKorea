@@ -1,21 +1,38 @@
 package com.example.cheongwh.queuing;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.FrameLayout;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 
     // Declaring Your View and Variables
 
-    Toolbar toolbar;
-    ViewPager pager;
-    ViewPagerAdapter adapter;
-    SlidingTabLayout tabs;
+    private Toolbar toolbar;
+    private ViewPager pager;
+    private ViewPagerAdapter adapter;
+    private SlidingTabLayout tabs;
+    private DrawerLayout mDrawerLayout;
+    private FrameLayout rightDrawer;
+    private ActionBarDrawerToggle mDrawerToggle;
+
     private int[] imageResId = {
             R.drawable.ic_tab_shop,
             R.drawable.ic_tab_reserv_info,
@@ -29,19 +46,30 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         // Creating The Toolbar and setting it as the Toolbar for the activity
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
-
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(),imageResId,Numboftabs,getApplicationContext());
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        rightDrawer = (FrameLayout) findViewById(R.id.rDrawer);
+        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+            }
+        };
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         // Assiging the Sliding Tab Layout View
         tabs = (SlidingTabLayout) findViewById(R.id.tabs);
@@ -58,8 +86,6 @@ public class MainActivity extends ActionBarActivity {
         // Setting the ViewPager For the SlidingTabsLayout
         tabs.setViewPager(pager);
 
-
-
     }
 
 
@@ -67,21 +93,60 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_navigation_drawer);
+        Bitmap new_icon = resizeBitmapImageFn(icon, 40);
+        Drawable d = new BitmapDrawable(getResources(),new_icon);
+        menu.getItem(0).setIcon(d);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        //item.setIcon(R.drawable.)
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        item.getIcon();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_search) {
+            if (mDrawerLayout.isDrawerOpen(Gravity.RIGHT)) {
+                mDrawerLayout.closeDrawer(Gravity.RIGHT);
+            } else {
+                mDrawerLayout.openDrawer(Gravity.RIGHT);
+            }
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
+    private Bitmap resizeBitmapImageFn(
+            Bitmap bmpSource, int maxResolution){
+        int iWidth = bmpSource.getWidth();      //비트맵이미지의 넓이
+        int iHeight = bmpSource.getHeight();     //비트맵이미지의 높이
+        int newWidth = iWidth ;
+        int newHeight = iHeight ;
+        float rate = 0.0f;
+
+        //이미지의 가로 세로 비율에 맞게 조절
+        if(iWidth > iHeight ){
+            if(maxResolution < iWidth ){
+                rate = maxResolution / (float) iWidth ;
+                newHeight = (int) (iHeight * rate);
+                newWidth = maxResolution;
+            }
+        }else{
+            if(maxResolution < iHeight ){
+                rate = maxResolution / (float) iHeight ;
+                newWidth = (int) (iWidth * rate);
+                newHeight = maxResolution;
+            }
+        }
+
+        return Bitmap.createScaledBitmap(
+                bmpSource, newWidth, newHeight, true);
+    }
+
 }
