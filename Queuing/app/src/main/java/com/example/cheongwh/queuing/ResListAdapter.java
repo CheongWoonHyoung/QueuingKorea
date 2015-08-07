@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.cheongwh.queuing.ResListItem;
+import com.squareup.picasso.Picasso;
 //import com.squareup.picasso.Picasso;
 
 import java.lang.reflect.Type;
@@ -71,10 +72,11 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
             holder.res_distance.setText(res_item.res_distance);
             //holder.res_distance.setTypeface(mTypeface);
             holder.res_linenum.setText(res_item.res_linenum);*/
+            //holder.res_imgurl = res_item.res_imgurl;
         }
-
+        Log.e("Height:"," "+v.getWidth()+" "+v.getHeight());
         //setGlobalFont(parent);
-        //Picasso.with(this.context).load(res_item.small_imgurl).resize(width_image, height_image).centerCrop().into(holder.res_image);
+        //Picasso.with(this.context).load(res_item.res_imgurl).resize(v.getWidth(), v.getHeight()).centerCrop().into(holder.res_image);
         Log.e("index", ":" + position);
 
         return v;
@@ -93,6 +95,7 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
 
     static class ResListHolder
     {
+        String res_imgurl;
         ImageView res_image;
         TextView res_name;
         TextView res_cuisine;
