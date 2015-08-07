@@ -38,7 +38,7 @@
                             android:layout_marginRight="70dp"
                             android:paddingLeft="20dp"
                             android:textSize="20dp"
-                            android:text="@string/sample_res_text"/>
+                            android:text="아웃백 스테이크 하우스"/>
                     </LinearLayout>
                     <LinearLayout
                         android:layout_width="fill_parent"
@@ -55,28 +55,32 @@
                             android:text="@string/sample_res_cuisine"/>
                     </LinearLayout>
                     <FrameLayout
-                        android:layout_width="70dp"
+                        android:layout_width="100dp"
                         android:layout_marginTop="40dp"
                         android:layout_height="40dp"
                         android:layout_alignParentRight="true">
-                        <TextView
-                            android:id="@+id/res_linenum"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:text="11"
-                            android:textColor="#FFFFFF"
-                            android:textSize="20dp"
-                            android:paddingTop="2dp"
-                            android:paddingLeft="14dp"/>
+
                         <TextView
                             android:layout_width="30dp"
                             android:layout_height="40dp"
-                            android:text="@string/num"
+                            android:gravity="right"
+                            android:text="분"
                             android:textColor="#FFFFFF"
                             android:textSize="15dp"
-                            android:paddingTop="5dp"
-                            android:paddingLeft="2dp"
-                            android:layout_marginLeft="40dp"/>
+                            android:paddingTop="6dp"
+                            android:paddingRight="10dp"
+                            android:layout_gravity="right|center_vertical" />
+
+                        <TextView
+                            android:id="@+id/res_linenum"
+                            android:layout_width="72dp"
+                            android:layout_height="40dp"
+                            android:gravity="right"
+                            android:text="15 - 30"
+                            android:textColor="#FFFFFF"
+                            android:textSize="20dp"
+                            android:paddingTop="2dp"
+                            android:layout_gravity="center_vertical" />
                     </FrameLayout>
                     <FrameLayout
                         android:layout_width="70dp"
@@ -91,6 +95,7 @@
                             android:textColor="#E0E0E0"
                             android:textSize="15dp"
                             android:text="120"/>
+
                         <TextView
                             android:layout_width="30dp"
                             android:layout_height="fill_parent"
@@ -98,7 +103,8 @@
                             android:text="m"
                             android:paddingLeft="3dp"
                             android:paddingTop="20dp"
-                            android:textColor="#E0E0E0"/>
+                            android:textColor="#E0E0E0"
+                            android:layout_gravity="right|center_vertical" />
                     </FrameLayout>
                 </RelativeLayout>
             </FrameLayout>
