@@ -1,6 +1,4 @@
-package com.example.cheongwh.queuing;
-
-import android.graphics.Bitmap;
+package com.unist.npc.queuing;
 
 import java.util.ArrayList;
 

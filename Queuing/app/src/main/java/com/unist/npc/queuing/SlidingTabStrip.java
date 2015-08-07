@@ -1,4 +1,4 @@
-package com.example.cheongwh.queuing;
+package com.unist.npc.queuing;
 
 import android.R;
 import android.content.Context;
