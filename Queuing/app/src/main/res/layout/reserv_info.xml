@@ -30,7 +30,7 @@
                     android:layout_height="50dp"
                     android:textColor="#212121"
                     android:textSize="30dp"
-                    android:textStyle="bold"
+                    android:textStyle="normal"
                     android:paddingLeft="20dp"
                     android:text="OUTBACK Steak House"
                     android:paddingTop="15dp"/>
@@ -226,6 +226,7 @@
                 android:background="@drawable/cancel_btn"
                 android:layout_marginBottom="10dp"
                 android:layout_marginLeft="30dp"
+                android:clickable="true"
                 android:layout_marginRight="30dp"
                 android:elevation="3dp"
                 android:layout_height="40dp">

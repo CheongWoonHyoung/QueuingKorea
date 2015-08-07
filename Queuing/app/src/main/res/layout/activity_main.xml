@@ -57,17 +57,87 @@
                 android:id="@+id/pager"
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
-                ></android.support.v4.view.ViewPager>
+                android:layout_weight="1">
+
+            </android.support.v4.view.ViewPager>
         </FrameLayout>
 
     </LinearLayout>
     <FrameLayout
         android:id="@+id/rDrawer"
         android:layout_gravity= "end"
-        android:layout_width= "270.0dip"
+        android:layout_width= "240.0dip"
         android:layout_height="fill_parent"
+        android:clickable="false"
         android:background="#123145">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:background="#FFFFFF"
+            android:orientation="vertical"
+            android:layout_marginLeft="1px"
+            android:layout_height="fill_parent">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:background="#E0E0E0"
+                android:layout_height="100dp">
 
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:paddingLeft="20dp"
+                    android:textColor="#01579B"
+                    android:gravity="center_vertical"
+                    android:text="마이 페이지"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:paddingLeft="20dp"
+                    android:textColor="#01579B"
+                    android:gravity="center_vertical"
+                    android:text="친구 초대하기"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:paddingLeft="20dp"
+                    android:textColor="#01579B"
+                    android:gravity="center_vertical"
+                    android:text="도움말"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:paddingLeft="20dp"
+                    android:textColor="#01579B"
+                    android:gravity="center_vertical"
+                    android:text="최근 검색"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1">
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="60dp"
+                android:background="#424242">
+
+            </LinearLayout>
+        </LinearLayout>
     </FrameLayout>
 </android.support.v4.widget.DrawerLayout>

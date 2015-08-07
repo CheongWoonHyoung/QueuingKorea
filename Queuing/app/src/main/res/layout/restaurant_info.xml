@@ -9,7 +9,6 @@
         android:layout_width="fill_parent"
         android:background="@color/ColorPrimary"
         android:elevation="2dp"
-        android:layout_marginLeft="-16.0dip"
         android:theme="@style/ActionBarThemeOverlay"
         android:popupTheme="@style/ActionBarPopupThemeOverlay"
         xmlns:android="http://schemas.android.com/apk/res/android"/>
@@ -270,6 +269,7 @@
         android:id="@+id/res_confirm"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
+        android:clickable="true"
         android:layout_alignParentBottom="true">
         <TextView
             android:layout_width="fill_parent"
