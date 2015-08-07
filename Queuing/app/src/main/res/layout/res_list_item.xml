@@ -10,6 +10,7 @@
             android:layout_width="fill_parent"
             android:layout_height="300dp">
             <ImageView
+                android:id="@+id/res_image"
                 android:layout_width="fill_parent"
                 android:background="@drawable/sample_img"
                 android:layout_height="300dp" />
@@ -26,6 +27,7 @@
                         android:layout_width="fill_parent"
                         android:layout_height="40dp">
                         <TextView
+                            android:id="@+id/res_name"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:textColor="#FFFFFF"
@@ -41,6 +43,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_height="40dp">
                         <TextView
+                            android:id="@+id/res_cuisine"
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent"
                             android:layout_marginRight="70dp"
@@ -55,6 +58,7 @@
                         android:layout_height="40dp"
                         android:layout_alignParentRight="true">
                         <TextView
+                            android:id="@+id/res_linenum"
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:text="11"
