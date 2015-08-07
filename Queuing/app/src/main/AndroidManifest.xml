@@ -30,7 +30,7 @@
         <activity android:name="com.unist.npc.queuing.ConfirmActivity"
             android:label="ConfirmActivity"></activity>
         <activity android:name="com.unist.npc.queuing.LoginActivity"
-            android:label="loginActivity">
+            android:label="Queuing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

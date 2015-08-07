@@ -37,23 +37,24 @@
 
             </FrameLayout>
         </RelativeLayout>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="200dp">
             <LinearLayout
                 android:id="@+id/login"
-                android:layout_width="fill_parent"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_width="330dp"
                 android:layout_marginTop="70dp"
-                android:background="#0288D1"
-                android:layout_height="50dp">
+                android:elevation="3dp"
+                android:layout_height="wrap_content">
                 <com.kakao.usermgmt.LoginButton
+                    android:elevation = "3dp"
                     android:id="@+id/com_kakao_login"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:gravity="center"/>
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>
