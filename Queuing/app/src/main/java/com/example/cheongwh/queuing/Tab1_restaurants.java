@@ -16,21 +16,21 @@ import java.util.ArrayList;
 /**
  * Created by hp1 on 21-01-2015.
  */
-public class Tab1 extends Fragment {
+public class Tab1_restaurants extends Fragment {
+
     Context mContext;
     ListView res_listview;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v =inflater.inflate(R.layout.tab_1,container,false);
+        View v = inflater.inflate(R.layout.tab1_restaurants, container, false);
         mContext = container.getContext();
-
 
         res_listview = (ListView) v.findViewById(R.id.res_list);
         ArrayList<ResListItem> items = new ArrayList<ResListItem>();
-        ResListAdapter adapter = new ResListAdapter(mContext,R.layout.res_list_item,items);
-        for(int i=0;i<15;i++) items.add(new ResListItem(null,null,null,null,null));
+        ResListAdapter adapter = new ResListAdapter(mContext, R.layout.res_list_item, items);
+        for (int i = 0; i < 15; i++) items.add(new ResListItem(null, null, null, null, null));
         res_listview.setAdapter(adapter);
 
         res_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -41,5 +41,6 @@ public class Tab1 extends Fragment {
             }
         });
         return v;
+
     }
 }
