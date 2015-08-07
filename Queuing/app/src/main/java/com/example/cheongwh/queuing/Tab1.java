@@ -28,7 +28,9 @@ public class Tab1 extends Fragment {
         res_listview = (ListView) v.findViewById(R.id.res_list);
         ArrayList<ResListItem> items = new ArrayList<ResListItem>();
         ResListAdapter adapter = new ResListAdapter(mContext,R.layout.res_list_item,items);
-        for(int i=0;i<15;i++) items.add(new ResListItem(null,null,null,null,null));
+        items.add(new ResListItem("http://52.69.163.43/img_test/1.jpg",null,null,null,null));
+        items.add(new ResListItem("http://52.69.163.43/img_test/2.png",null,null,null,null));
+        items.add(new ResListItem("http://52.69.163.43/img_test/3.jpg",null,null,null,null));
         res_listview.setAdapter(adapter);
         return v;
     }
