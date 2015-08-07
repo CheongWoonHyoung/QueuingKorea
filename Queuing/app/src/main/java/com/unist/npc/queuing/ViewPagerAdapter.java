@@ -1,4 +1,4 @@
-package com.example.cheongwh.queuing;
+package com.unist.npc.queuing;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

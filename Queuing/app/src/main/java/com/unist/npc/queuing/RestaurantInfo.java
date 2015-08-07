@@ -1,6 +1,5 @@
-package com.example.cheongwh.queuing;
+package com.unist.npc.queuing;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;

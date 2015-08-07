@@ -1,4 +1,4 @@
-package com.example.cheongwh.queuing;
+package com.unist.npc.queuing;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,11 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.cheongwh.queuing.ResListItem;
-import com.squareup.picasso.Picasso;
 //import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
