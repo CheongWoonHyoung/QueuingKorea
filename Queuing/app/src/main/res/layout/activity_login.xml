@@ -48,12 +48,11 @@
                 android:layout_marginTop="70dp"
                 android:background="#0288D1"
                 android:layout_height="50dp">
-                <TextView
+                <com.kakao.usermgmt.LoginButton
+                    android:id="@+id/com_kakao_login"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:gravity="center"
-                    android:textColor="#FFFFFF"
-                    android:text="로그인"/>
+                    android:gravity="center"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
