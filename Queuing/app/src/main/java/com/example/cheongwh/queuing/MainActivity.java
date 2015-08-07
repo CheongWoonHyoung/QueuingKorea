@@ -16,8 +16,13 @@ public class MainActivity extends ActionBarActivity {
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
-    CharSequence Titles[]={"Home","Events"};
-    int Numboftabs =2;
+    private int[] imageResId = {
+            R.drawable.ic_tab_shop,
+            R.drawable.ic_tab_reserv_info,
+            R.drawable.ic_tab_favorites,
+    };
+    //CharSequence Titles[]={"Home","Events"};
+    int Numboftabs =3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +38,7 @@ public class MainActivity extends ActionBarActivity {
         getSupportActionBar().setTitle(null);
 
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
-
+        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),imageResId,Numboftabs,getApplicationContext());
         // Assigning ViewPager View and setting the adapter
         pager = (ViewPager) findViewById(R.id.pager);
         pager.setAdapter(adapter);
