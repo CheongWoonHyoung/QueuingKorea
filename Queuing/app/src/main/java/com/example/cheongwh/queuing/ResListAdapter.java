@@ -72,7 +72,7 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
             holder.res_distance.setText(res_item.res_distance);
             //holder.res_distance.setTypeface(mTypeface);
             holder.res_linenum.setText(res_item.res_linenum);*/
-            holder.res_imgurl = res_item.res_imgurl;
+            //holder.res_imgurl = res_item.res_imgurl;
         }
         Log.e("Height:"," "+v.getWidth()+" "+v.getHeight());
         //setGlobalFont(parent);
