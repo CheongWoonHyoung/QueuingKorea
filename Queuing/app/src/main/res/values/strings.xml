@@ -13,4 +13,6 @@
     <string name="webpage">웹사이트</string>
     <string name="adress">주소</string>
     <string name="number">번호</string>
+    <string name="drawer_open">OPEN</string>
+    <string name="drawer_close">CLOSE</string>
 </resources>
