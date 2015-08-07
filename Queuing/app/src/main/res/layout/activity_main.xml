@@ -9,7 +9,6 @@
         android:layout_width = "fill_parent"
         android:layout_height = "fill_parent"
         >
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_height="?actionBarSize"
@@ -20,15 +19,55 @@
             android:theme="@style/ActionBarThemeOverlay"
             android:popupTheme="@style/ActionBarPopupThemeOverlay"
             xmlns:android="http://schemas.android.com/apk/res/android" >
+            <com.example.cheongwh.queuing.SlidingTabLayout
+                android:id="@+id/tabs"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="center|bottom|left"
+                android:background="#FFFFFF"/>
 
+            <FrameLayout
+                android:layout_width="40dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
+                <ImageView
+                    android:id="@+id/text1"
+                    android:layout_gravity="center|bottom"
+                    android:layout_width="19dp"
+                    android:layout_height="fill_parent"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="10dp"
+                    android:maxHeight="10dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_tab_filter"
+                    android:text="TEXT"
+                    android:textSize="10dp"/>
+            </FrameLayout>
 
-
-    <com.example.cheongwh.queuing.SlidingTabLayout
-        android:id="@+id/tabs"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center|bottom|left"
-        android:background="#FFFFFF"/>
+            <FrameLayout
+                android:layout_marginRight="5dp"
+                android:layout_width="40dp"
+                android:layout_height="fill_parent"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
+                <ImageView
+                    android:id="@+id/text2"
+                    android:layout_toLeftOf="@id/text1"
+                    android:layout_gravity="center|bottom"
+                    android:layout_width="19dp"
+                    android:adjustViewBounds="true"
+                    android:maxWidth="10dp"
+                    android:maxHeight="10dp"
+                    android:scaleType="fitCenter"
+                    android:layout_height="fill_parent"
+                    android:src="@drawable/ic_tab_map"
+                    android:text="TEXT"
+                    android:textSize="10dp"/>
+            </FrameLayout>
 
         </android.support.v7.widget.Toolbar>
         <FrameLayout
@@ -36,15 +75,11 @@
             android:layout_height="fill_parent">
             <android.support.v4.view.ViewPager
                 android:id="@+id/pager"
-
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 ></android.support.v4.view.ViewPager>
         </FrameLayout>
-
-
-
 
     </LinearLayout>
     <FrameLayout
