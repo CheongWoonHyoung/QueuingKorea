@@ -14,7 +14,11 @@
         <item name="colorControlNormal">#03A9F4</item>
         <item name="colorControlHighlight">#81D4FA</item>
     </style>
-
+    <style name="AppTheme.Base" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">#03A9F4</item>
+        <item name="colorPrimaryDark">#03A9F4</item>
+        <item name="colorAccent">#BDBDBD</item>
+    </style>
 
     <style name="ActionBarPopupThemeOverlay" parent="ThemeOverlay.AppCompat.Light" >
         <item name="android:background">#03A9F4</item>

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 public class Tab2_reservation_info extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.tab2_reservation_info,container,false);
+        View v = inflater.inflate(R.layout.reserv_info,container,false);
         return v;
     }
 }
