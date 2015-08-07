@@ -1,12 +1,14 @@
 package com.example.cheongwh.queuing;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -30,6 +32,14 @@ public class Tab1 extends Fragment {
         ResListAdapter adapter = new ResListAdapter(mContext,R.layout.res_list_item,items);
         for(int i=0;i<15;i++) items.add(new ResListItem(null,null,null,null,null));
         res_listview.setAdapter(adapter);
+
+        res_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(mContext, RestaurantInfo.class);
+                startActivity(intent);
+            }
+        });
         return v;
     }
 }
