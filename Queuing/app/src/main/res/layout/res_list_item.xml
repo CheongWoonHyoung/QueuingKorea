@@ -76,6 +76,27 @@
                             android:paddingLeft="2dp"
                             android:layout_marginLeft="40dp"/>
                     </FrameLayout>
+                    <FrameLayout
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentRight="true">
+                        <TextView
+                            android:layout_width="40dp"
+                            android:paddingTop="19dp"
+                            android:paddingLeft="10dp"
+                            android:layout_height="fill_parent"
+                            android:textColor="#E0E0E0"
+                            android:textSize="15dp"
+                            android:text="120"/>
+                        <TextView
+                            android:layout_width="30dp"
+                            android:layout_height="fill_parent"
+                            android:layout_marginLeft="40dp"
+                            android:text="m"
+                            android:paddingLeft="3dp"
+                            android:paddingTop="20dp"
+                            android:textColor="#E0E0E0"/>
+                    </FrameLayout>
                 </RelativeLayout>
             </FrameLayout>
         </RelativeLayout>
