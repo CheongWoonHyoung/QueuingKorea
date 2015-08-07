@@ -254,6 +254,7 @@
         </LinearLayout>
     </ScrollView>
     <FrameLayout
+        android:id="@+id/res_confirm"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true">

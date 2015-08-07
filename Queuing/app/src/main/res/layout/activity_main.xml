@@ -26,37 +26,17 @@
                 android:layout_gravity="center|bottom|left"
                 android:background="#FFFFFF"/>
 
-            <FrameLayout
-                android:layout_width="40dp"
-                android:layout_height="fill_parent"
-                android:layout_gravity="right"
-                android:layout_marginRight="10dp"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackground">
-                <ImageView
-                    android:id="@+id/text1"
-                    android:layout_gravity="center|bottom"
-                    android:layout_width="19dp"
-                    android:layout_height="fill_parent"
-                    android:adjustViewBounds="true"
-                    android:maxWidth="10dp"
-                    android:maxHeight="10dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_tab_filter"
-                    android:text="TEXT"
-                    android:textSize="10dp"/>
-            </FrameLayout>
+
 
             <FrameLayout
-                android:layout_marginRight="5dp"
-                android:layout_width="40dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="50dp"
                 android:layout_height="fill_parent"
                 android:layout_gravity="right"
                 android:clickable="true"
                 android:foreground="?attr/selectableItemBackground">
                 <ImageView
                     android:id="@+id/text2"
-                    android:layout_toLeftOf="@id/text1"
                     android:layout_gravity="center|bottom"
                     android:layout_width="19dp"
                     android:adjustViewBounds="true"
