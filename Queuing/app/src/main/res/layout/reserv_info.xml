@@ -29,10 +29,10 @@
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
                     android:textColor="#212121"
-                    android:textSize="30dp"
+                    android:textSize="25dp"
                     android:textStyle="normal"
                     android:paddingLeft="20dp"
-                    android:text="OUTBACK Steak House"
+                    android:text="아웃백 스테이크 하우스"
                     android:paddingTop="15dp"/>
                 <TextView
                     android:layout_width="fill_parent"

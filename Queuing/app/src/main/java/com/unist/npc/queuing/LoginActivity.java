@@ -3,6 +3,7 @@ package com.unist.npc.queuing;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -86,6 +87,7 @@ public class LoginActivity extends Activity {
             public void onSessionClosed(final KakaoException exception) {
                 // 프로그레스바 종료
                 // 세션 오픈을 못했으니 다시 로그인 버튼 노출.
+                Log.d("LOGINFAIL","FAIL " +exception);
                 kakaoLogin.setVisibility(View.VISIBLE);
             }
 

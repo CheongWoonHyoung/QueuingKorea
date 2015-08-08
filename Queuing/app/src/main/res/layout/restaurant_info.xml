@@ -19,6 +19,7 @@
         >
         <LinearLayout
             android:layout_width="fill_parent"
+            android:background="#FFFFFF"
             android:orientation="vertical"
             android:layout_height="fill_parent">
             <LinearLayout
@@ -43,7 +44,7 @@
                     android:gravity="bottom"
                     android:paddingLeft="20dp"
                     android:paddingBottom="8dp"
-                    android:text="OUTBACK Steak House"/>
+                    android:text="아웃백 스테이크 하우스"/>
                 <TextView
                     android:id="@+id/res_cuisine"
                     android:layout_width="fill_parent"
@@ -214,20 +215,24 @@
                             android:textSize="16dp"
                             android:textColor="#212121"/>
                     </LinearLayout>
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="50dp"
                         android:layout_height="fill_parent">
-
-                    </LinearLayout>
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_centerVertical="true"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/arrow487"/>
+                    </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
-                android:background="#D4D4D4"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:background="#D4D4D4">
 
             </LinearLayout>
             <LinearLayout
@@ -241,11 +246,10 @@
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="1px"
-                android:background="#D4D4D4"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp">
+                android:background="#D4D4D4">
 
             </LinearLayout>
+
             <LinearLayout
                 android:orientation="vertical"
                 android:id="@+id/res_review"

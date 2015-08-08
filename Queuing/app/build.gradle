@@ -33,6 +33,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
+
+    compile files('libs/libDaumMapAndroid.jar')
     // 카카오 링크를 사용하기 위해 필요.
     compile group: project.KAKAO_SDK_GROUP, name: 'kakaolink', version: project.KAKAO_SDK_VERSION
     // 카카오스토리 sdk를 사용하기 위해 필요.
@@ -43,4 +45,6 @@ dependencies {
     compile group: project.KAKAO_SDK_GROUP, name: 'push', version: project.KAKAO_SDK_VERSION
     // 사용자관리 sdk를 사용하기 위해 필요.
     compile group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
+
+    compile files('libs/Android_DaumMap_SDK_1.2.15.5.jar')
 }
