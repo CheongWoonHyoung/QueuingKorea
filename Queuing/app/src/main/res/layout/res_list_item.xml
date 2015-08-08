@@ -9,12 +9,12 @@
         android:layout_height="300dp"
         android:orientation="vertical">
         <RelativeLayout
+            android:id="@+id/layout_large_img"
             android:layout_width="fill_parent"
             android:layout_height="300dp">
             <ImageView
                 android:id="@+id/res_image"
                 android:layout_width="fill_parent"
-                android:background="@drawable/sample_img"
                 android:layout_height="300dp" />
             <FrameLayout
                 android:layout_width="fill_parent"

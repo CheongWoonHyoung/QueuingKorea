@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -24,7 +25,7 @@ public class Tab1_restaurants extends Fragment {
     ListView res_listview;
     ArrayList<ResListItem> items;
     ResListAdapter adapter;
-
+    RelativeLayout layout_img;
     boolean lastItemVisibleFlag;
 
 
@@ -34,11 +35,18 @@ public class Tab1_restaurants extends Fragment {
         mContext = container.getContext();
 
         res_listview = (ListView) v.findViewById(R.id.res_list);
+        layout_img = (RelativeLayout) v.findViewById(R.id.layout_large_img);
         items = new ArrayList<ResListItem>();
         adapter = new ResListAdapter(mContext,R.layout.res_list_item,items);
-        items.add(new ResListItem("http://52.69.163.43/img_test/1.jpg",null,null,null,null));
-        items.add(new ResListItem("http://52.69.163.43/img_test/2.png", null, null, null, null));
-        items.add(new ResListItem("http://52.69.163.43/img_test/3.jpg", null, null, null, null));
+        items.add(new ResListItem(R.drawable.sample_img,"http://52.69.163.43/img_test/1.jpg","아웃백 스테이크 하우스","스테이크, 패밀리레스토랑","120","11"));
+        items.add(new ResListItem(R.drawable.bbong,"http://52.69.163.43/img_test/3.jpg", "니뽕내뽕", "퓨전 > 국수, 피자", "110", "6"));
+        items.add(new ResListItem(R.drawable.ashley,"http://52.69.163.43/img_test/2.png", "애슐리 신촌", "패밀리 레스토랑", "100", "8"));
+        items.add(new ResListItem(R.drawable.bossam, "http://52.69.163.43/img_test/3.jpg", "원할머니 보쌈", "한식 > 보쌈", "300", "3"));
+        items.add(new ResListItem(R.drawable.seogancook,"http://52.69.163.43/img_test/3.jpg", "서가앤쿡", "이탈리안 레스토랑", "730", "5"));
+        items.add(new ResListItem(R.drawable.jjukkumi,"http://52.69.163.43/img_test/3.jpg", "오쭈", "한식 > 쭈꾸미", "560", "7"));
+        items.add(new ResListItem(R.drawable.seol,"http://52.69.163.43/img_test/3.jpg", "신선설농탕", "한식 > 곰탕, 설렁탕", "700", "6"));
+        items.add(new ResListItem(R.drawable.pigfarm,"http://52.69.163.43/img_test/3.jpg", "피그팜", "한식 > 육류, 고기요리", "300", "5"));
+        items.add(new ResListItem(R.drawable.cafemamas,"http://52.69.163.43/img_test/3.jpg", "카페마마스", "카페, 이탈리안", "500", "9"));
         res_listview.setAdapter(adapter);
 
         res_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -49,7 +57,7 @@ public class Tab1_restaurants extends Fragment {
             }
         });
         lastItemVisibleFlag = false;
-        res_listview.setOnScrollListener(new AbsListView.OnScrollListener() {
+        /*res_listview.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
@@ -58,7 +66,7 @@ public class Tab1_restaurants extends Fragment {
                 lastItemVisibleFlag = (totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount);
                 if(lastItemVisibleFlag){
                     Log.e("T&F","TRUE");
-                    for(int i=0;i<3;i++) items.add(new ResListItem(null,null,null,null,null));
+                    for(int i=0;i<3;i++) items.add(new ResListItem(0,null,null,null,null,null));
                     adapter.notifyDataSetChanged();
                 }
                 else Log.e("T&F","FALSE");
@@ -75,7 +83,7 @@ public class Tab1_restaurants extends Fragment {
                 }
             }
 
-        });
+        });*/
         return v;
 
     }

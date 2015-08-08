@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 //import com.squareup.picasso.Picasso;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
@@ -62,13 +64,15 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
         ResListItem res_item = items.get(position);
 
         if(res_item!=null){
-            /*holder.res_name.setText(res_item.res_name);
+            holder.res_name.setText(res_item.res_name);
             //holder.res_name.setTypeface(mTypeface);
             holder.res_cuisine.setText(res_item.res_cuisine);
             //holder.res_cuisine.setTypeface(mTypeface);
             holder.res_distance.setText(res_item.res_distance);
             //holder.res_distance.setTypeface(mTypeface);
-            holder.res_linenum.setText(res_item.res_linenum);*/
+            holder.res_linenum.setText(res_item.res_linenum);
+           // holder.res_image.setBackgroundResource(res_item.img);
+            Picasso.with(getContext()).load(res_item.img).resize(390,300).centerCrop().into(holder.res_image);
             //holder.res_imgurl = res_item.res_imgurl;
         }
         Log.e("Height:"," "+v.getWidth()+" "+v.getHeight());

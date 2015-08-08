@@ -16,6 +16,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.kakao.auth.AuthType;
+import com.kakao.auth.Session;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Session.initialize(getApplicationContext(), AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN);//MAKE ONLY POSSIBLE FOR KAKAOLOGIN
 
         // Creating The Toolbar and setting it as the Toolbar for the activity
         toolbar = (Toolbar) findViewById(R.id.toolbar_main);
