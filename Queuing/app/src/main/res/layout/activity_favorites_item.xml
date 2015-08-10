@@ -64,7 +64,7 @@
                                     android:paddingRight="10dp"
                                     android:textSize="10dp"
                                     android:textColor="#656565"
-                                    android:paddingTop="7dp"
+                                    android:paddingTop="8dp"
                                     android:text="대기 인원"/>
                             </LinearLayout>
                             <LinearLayout
@@ -96,7 +96,7 @@
                                     android:gravity="right"
                                     android:paddingRight="10dp"
                                     android:textSize="10dp"
-                                    android:paddingTop="7dp"
+                                    android:paddingTop="8dp"
                                     android:textColor="#656565"
                                     android:text="대기 시간"/>
                             </LinearLayout>

@@ -11,9 +11,14 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
+import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -22,13 +27,15 @@ import net.daum.mf.map.api.MapView;
 /**
  * Created by cheongwh on 2015. 8. 7..
  */
-public class MapActivity extends Activity implements LocationListener{
+public class MapActivity extends Activity implements LocationListener, MapView.POIItemEventListener{
 
     //private final Context mContext;
 
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
     boolean isGetLocation = false;
+    FrameLayout information;
+
 
     Location location;
     double lat;
@@ -47,29 +54,82 @@ public class MapActivity extends Activity implements LocationListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        getLocation();
-        MapView mapView = new MapView(this);
-        mapView.setDaumMapApiKey("6f34a566bab64437f455521185842b3f");
 
+        information = (FrameLayout)findViewById(R.id.information);
+        information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MapActivity.this, RestaurantInfo.class);
+                startActivity(intent);
+            }
+        });
+        getLocation();
+        final MapView mapView = new MapView(this);
+        mapView.setDaumMapApiKey("6f34a566bab64437f455521185842b3f");
         ViewGroup mapViewContainer = (ViewGroup)findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.557627, 126.936976), true);
         mapView.setZoomLevel(1, true);
+        mapView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                information.setVisibility(View.GONE);
+                return false;
+            }
+        });
+        mapView.setShowCurrentLocationMarker(true);
+        mapView.setPOIItemEventListener(this);
         Toast.makeText(getApplicationContext(), "위도: " + lat + "경도: " + lon, Toast.LENGTH_LONG).show();
         addMarker(mapView);
+        information.bringToFront();
+
+
+
     }
 
+    @Override
+    public void onPOIItemSelected(MapView mapView, MapPOIItem poiItem){
+
+
+        Log.d("MAP", "CLICKED");
+        MapPoint location;
+        location = poiItem.getMapPoint();
+        Log.d("LOC", " "+ location);
+        mapView.moveCamera(CameraUpdateFactory.newMapPoint(location));
+        information.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+    }
+
+    @Override
+    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+    }
 
     public void addMarker(MapView mapView){
         MapPOIItem marker = new MapPOIItem();
+        marker.setShowCalloutBalloonOnTouch(true);
+        marker.setShowDisclosureButtonOnCalloutBalloon(false);
         marker.setItemName("Default Marker");
         marker.setTag(0);
         marker.setMapPoint(MapPoint.mapPointWithGeoCoord(37.556228, 126.934614));
-        marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
-        marker.setSelectedMarkerType(MapPOIItem.MarkerType.RedPin);
+        marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.BluePin);
+
 
         mapView.addPOIItem(marker);
     }
+
+
+
 
     public Location getLocation(){
         try{
@@ -188,4 +248,6 @@ public class MapActivity extends Activity implements LocationListener{
     public void onProviderDisabled(String provider) {
 
     }
+
+
 }
