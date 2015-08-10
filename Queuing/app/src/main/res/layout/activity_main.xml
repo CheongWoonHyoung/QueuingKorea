@@ -87,11 +87,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="60dp">
                 <TextView
+                    android:id="@+id/main2mypage"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:paddingLeft="20dp"
                     android:textColor="#01579B"
                     android:gravity="center_vertical"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
                     android:text="마이 페이지"/>
             </LinearLayout>
             <LinearLayout
@@ -103,6 +106,8 @@
                     android:paddingLeft="20dp"
                     android:textColor="#01579B"
                     android:gravity="center_vertical"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
                     android:text="친구 초대하기"/>
             </LinearLayout>
             <LinearLayout
@@ -114,6 +119,8 @@
                     android:paddingLeft="20dp"
                     android:textColor="#01579B"
                     android:gravity="center_vertical"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
                     android:text="도움말"/>
             </LinearLayout>
             <LinearLayout
@@ -125,6 +132,8 @@
                     android:paddingLeft="20dp"
                     android:textColor="#01579B"
                     android:gravity="center_vertical"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
                     android:text="최근 검색"/>
             </LinearLayout>
             <LinearLayout
