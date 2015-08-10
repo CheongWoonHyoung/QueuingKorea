@@ -42,6 +42,7 @@
             android:layout_height="200dp">
             <LinearLayout
                 android:id="@+id/login"
+                android:background="@drawable/login"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_width="330dp"

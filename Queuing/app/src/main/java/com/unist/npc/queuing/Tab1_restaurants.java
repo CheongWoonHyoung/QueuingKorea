@@ -2,6 +2,7 @@ package com.unist.npc.queuing;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -38,16 +48,9 @@ public class Tab1_restaurants extends Fragment {
         layout_img = (RelativeLayout) v.findViewById(R.id.layout_large_img);
         items = new ArrayList<ResListItem>();
         adapter = new ResListAdapter(mContext,R.layout.res_list_item,items);
-        items.add(new ResListItem(R.drawable.sample_img,"http://52.69.163.43/img_test/1.jpg","아웃백 스테이크 하우스","스테이크, 패밀리레스토랑","120","11"));
-        items.add(new ResListItem(R.drawable.bbong,"http://52.69.163.43/img_test/3.jpg", "니뽕내뽕", "퓨전 > 국수, 피자", "110", "6"));
-        items.add(new ResListItem(R.drawable.ashley,"http://52.69.163.43/img_test/2.png", "애슐리 신촌", "패밀리 레스토랑", "100", "8"));
-        items.add(new ResListItem(R.drawable.bossam, "http://52.69.163.43/img_test/3.jpg", "원할머니 보쌈", "한식 > 보쌈", "300", "3"));
-        items.add(new ResListItem(R.drawable.seogancook,"http://52.69.163.43/img_test/3.jpg", "서가앤쿡", "이탈리안 레스토랑", "730", "5"));
-        items.add(new ResListItem(R.drawable.jjukkumi,"http://52.69.163.43/img_test/3.jpg", "오쭈", "한식 > 쭈꾸미", "560", "7"));
-        items.add(new ResListItem(R.drawable.seol,"http://52.69.163.43/img_test/3.jpg", "신선설농탕", "한식 > 곰탕, 설렁탕", "700", "6"));
-        items.add(new ResListItem(R.drawable.pigfarm,"http://52.69.163.43/img_test/3.jpg", "피그팜", "한식 > 육류, 고기요리", "300", "5"));
-        items.add(new ResListItem(R.drawable.cafemamas,"http://52.69.163.43/img_test/3.jpg", "카페마마스", "카페, 이탈리안", "500", "9"));
-        res_listview.setAdapter(adapter);
+
+
+        new HttpPostRequst().execute("");
 
         res_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -87,4 +90,77 @@ public class Tab1_restaurants extends Fragment {
         return v;
 
     }
+    public class HttpPostRequst extends AsyncTask<String,Void,String>{
+        String sResult="error";
+        @Override
+        protected String doInBackground(String... info) {
+            URL url = null;
+            try {
+                url = new URL("http://52.69.163.43/queuing/get_all_rest_info.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setRequestMethod("POST");
+                String post_value = "";
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                osw.write(post_value);
+                osw.flush();
+
+                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                BufferedReader reader = new BufferedReader(tmp);
+                StringBuilder builder = new StringBuilder();
+                String str;
+                while ((str = reader.readLine()) != null) {
+                    builder.append(str);
+                }
+                sResult = builder.toString();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return sResult;
+        }
+        @Override
+        protected void onPostExecute(String result){
+            Log.e("RESULT",result);
+            String jsonall = result;
+            JSONArray jArray = null;
+            String name = null;
+            String cuisine = null;
+            int waiting_people = 0;
+            String img_large = null;
+            Double x_coordinate = null;
+            Double y_coordinate = null;
+            String distance = null;
+            try{
+                jArray = new JSONArray(jsonall);
+                JSONObject json_data = null;
+
+                for (int i = 0; i < jArray.length(); i++) {
+                    json_data = jArray.getJSONObject(i);
+                    name = json_data.getString("name");
+                    img_large = json_data.getString("img_large");
+                    cuisine = json_data.getString("cuisine");
+                    waiting_people = json_data.getInt("waiting_people");
+                    x_coordinate = json_data.getDouble("x_coordinate");
+                    y_coordinate =json_data.getDouble("y_coordinate");
+
+                        items.add(new ResListItem(img_large, name, cuisine, "?", String.valueOf(waiting_people * 5)));
+
+
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            res_listview.setAdapter(adapter);
+
+
+
+
+
+        }
+    }
+
 }

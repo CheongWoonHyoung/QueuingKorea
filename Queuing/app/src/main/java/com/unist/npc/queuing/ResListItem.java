@@ -12,15 +12,14 @@ public class ResListItem extends ArrayList<ResListItem> {
     public String res_name;
     public String res_cuisine;
     public String res_distance;
-    public String res_linenum;
-    public int img;
 
-    public ResListItem(int img, String imgurl,String name, String cuisine, String distance,String linenum){
+    public String res_waittime;
+
+    public ResListItem(String imgurl,String name, String cuisine, String distance,String waittime){
         this.res_imgurl = imgurl;
         this.res_name = name;
         this.res_cuisine = cuisine;
         this.res_distance = distance;
-        this.res_linenum = linenum;
-        this.img = img;
+        this.res_waittime = waittime;
     }
 }
