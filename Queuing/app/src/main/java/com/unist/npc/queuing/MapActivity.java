@@ -23,13 +23,15 @@ import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
+import java.util.Map;
+
 
 /**
  * Created by cheongwh on 2015. 8. 7..
  */
 public class MapActivity extends Activity implements LocationListener, MapView.POIItemEventListener{
 
-    //private final Context mContext;
+    /* private final Context mContext; */
 
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
@@ -68,8 +70,12 @@ public class MapActivity extends Activity implements LocationListener, MapView.P
         mapView.setDaumMapApiKey("6f34a566bab64437f455521185842b3f");
         ViewGroup mapViewContainer = (ViewGroup)findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
+        MapView.setMapTilePersistentCacheEnabled(true);
+
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+        mapView.setHDMapTileEnabled(true);
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(37.557627, 126.936976), true);
-        mapView.setZoomLevel(1, true);
+        mapView.setZoomLevel(2, true);
         mapView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
