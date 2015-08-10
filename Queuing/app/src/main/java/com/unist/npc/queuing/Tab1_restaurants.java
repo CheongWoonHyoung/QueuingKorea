@@ -32,7 +32,8 @@ public class Tab1_restaurants extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab1_restaurants, container, false);
-        mContext = container.getContext();
+        if(container!=null){
+            mContext = container.getContext();
 
         res_listview = (ListView) v.findViewById(R.id.res_list);
         layout_img = (RelativeLayout) v.findViewById(R.id.layout_large_img);
@@ -84,6 +85,7 @@ public class Tab1_restaurants extends Fragment {
             }
 
         });*/
+        }
         return v;
 
     }

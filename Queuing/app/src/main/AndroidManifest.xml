@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.unist.npc.queuing" >
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
 
     <application
         android:allowBackup="true"
@@ -21,8 +22,13 @@
         </activity>
         <activity android:name="com.unist.npc.queuing.ConfirmActivity"
             android:label="ConfirmActivity"></activity>
+        <activity android:name="com.unist.npc.queuing.MypageActivity"
+            android:label="MypageActivity"></activity>
         <activity android:name="com.unist.npc.queuing.LoginActivity"
             android:label="loginActivity">
+        </activity>
+        <activity android:name=".SingupActivity"
+            android:label=".SignupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

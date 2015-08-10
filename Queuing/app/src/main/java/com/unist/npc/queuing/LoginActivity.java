@@ -1,8 +1,12 @@
 package com.unist.npc.queuing;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -21,20 +25,23 @@ public class LoginActivity extends Activity {
     private LoginButton kakaoLogin;
     private final SessionCallback mySessionCallback = new MySessionStatusCallback();
     private Session session;
+    private BackPressCloseHandler backPressCloseHandler;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Session.initialize(getApplicationContext(), AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN);//MAKE ONLY POSSIBLE FOR KAKAOLOGIN
+        backPressCloseHandler = new BackPressCloseHandler(this);
 
+        //Session.initialize(getApplicationContext(), AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN);//MAKE ONLY POSSIBLE FOR KAKAOLOGIN
+        Session.initialize(this);
         kakaoLogin = (LoginButton) findViewById(R.id.com_kakao_login);
         login = (LinearLayout) findViewById(R.id.login);
         session = Session.getCurrentSession();
         session.addCallback(mySessionCallback);
 
-        Logger.d("++ session.isClosed() : " + session.isClosed());
+        Log.d("SESSON_STATUS", "++ session.isClosed() : " + session.isClosed());
         if (session.isClosed()){
             kakaoLogin.setVisibility(View.VISIBLE);
         } else {
@@ -75,8 +82,15 @@ public class LoginActivity extends Activity {
             @Override
             public void onSessionOpened() {
                 // 프로그레스바 종료
-
+                Log.d("OPEND", "OPEN");
                 // 세션 오픈후 보일 페이지로 이동
+                SharedPreferences prefs = getApplicationContext().getSharedPreferences("com.unist.npc.queuing.", Context.MODE_PRIVATE);
+                if(!prefs.contains("IsLogin"))
+                    prefs.edit().putBoolean("IsLogin",true).apply();
+                else{
+                    prefs.edit().remove("IsLogin").apply();
+                    prefs.edit().putBoolean("IsLogin",true).apply();
+                }
                 final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -95,6 +109,12 @@ public class LoginActivity extends Activity {
             }
         }
 
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+        Session.initialize(this);
+    }
 
 
 }
