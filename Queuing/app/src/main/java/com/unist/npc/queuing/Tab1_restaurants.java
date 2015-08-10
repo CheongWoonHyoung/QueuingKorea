@@ -2,6 +2,7 @@ package com.unist.npc.queuing;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,15 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -36,10 +46,8 @@ public class Tab1_restaurants extends Fragment {
         res_listview = (ListView) v.findViewById(R.id.res_list);
         items = new ArrayList<ResListItem>();
         adapter = new ResListAdapter(mContext,R.layout.res_list_item,items);
-        items.add(new ResListItem("http://52.69.163.43/img_test/1.jpg",null,null,null,null));
-        items.add(new ResListItem("http://52.69.163.43/img_test/2.png", null, null, null, null));
-        items.add(new ResListItem("http://52.69.163.43/img_test/3.jpg", null, null, null, null));
-        res_listview.setAdapter(adapter);
+
+        new HttpPostRequst().execute("");
 
         res_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -49,7 +57,7 @@ public class Tab1_restaurants extends Fragment {
             }
         });
         lastItemVisibleFlag = false;
-        res_listview.setOnScrollListener(new AbsListView.OnScrollListener() {
+        /*res_listview.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
@@ -75,8 +83,81 @@ public class Tab1_restaurants extends Fragment {
                 }
             }
 
-        });
+        });*/
         return v;
 
     }
+    public class HttpPostRequst extends AsyncTask<String,Void,String>{
+        String sResult="error";
+        @Override
+        protected String doInBackground(String... info) {
+            URL url = null;
+            try {
+                url = new URL("http://52.69.163.43/queuing/get_all_rest_info.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setRequestMethod("POST");
+                String post_value = "";
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                osw.write(post_value);
+                osw.flush();
+
+                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                BufferedReader reader = new BufferedReader(tmp);
+                StringBuilder builder = new StringBuilder();
+                String str;
+                while ((str = reader.readLine()) != null) {
+                    builder.append(str);
+                }
+                sResult = builder.toString();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+            return sResult;
+        }
+        @Override
+        protected void onPostExecute(String result){
+            Log.e("RESULT",result);
+            String jsonall = result;
+            JSONArray jArray = null;
+            String name = null;
+            String cuisine = null;
+            int waiting_people = 0;
+            String img_large = null;
+            Double x_coordinate = null;
+            Double y_coordinate = null;
+            String distance = null;
+            try{
+                jArray = new JSONArray(jsonall);
+                JSONObject json_data = null;
+
+                for (int i = 0; i < jArray.length(); i++) {
+                    json_data = jArray.getJSONObject(i);
+                    name = json_data.getString("name");
+                    img_large = json_data.getString("img_large");
+                    cuisine = json_data.getString("cuisine");
+                    waiting_people = json_data.getInt("waiting_people");
+                    x_coordinate = json_data.getDouble("x_coordinate");
+                    y_coordinate =json_data.getDouble("y_coordinate");
+
+                        items.add(new ResListItem(img_large, name, cuisine, "?", String.valueOf(waiting_people * 5)));
+
+
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            res_listview.setAdapter(adapter);
+
+
+
+
+
+        }
+    }
+
 }

@@ -100,11 +100,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Android_DaumMap_SDK_1.2.15.5" level="project" />
     <orderEntry type="library" exported="" name="picasso-2.5.2" level="project" />
-<<<<<<< HEAD
-    <orderEntry type="library" exported="" name="libDaumMapAndroid" level="project" />
-=======
     <orderEntry type="library" exported="" name="kakaotalk-1.1.2" level="project" />
->>>>>>> db4e7e68cfbc7a1fa32c7fa1adb944fa93170c85
+    <orderEntry type="library" exported="" name="libDaumMapAndroid" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.0" level="project" />
     <orderEntry type="library" exported="" name="kakaostory-1.1.2" level="project" />

@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 //import com.squareup.picasso.Picasso;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 
 /**
@@ -48,7 +50,7 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
             holder.res_name = (TextView) v.findViewById(R.id.res_name);
             holder.res_cuisine = (TextView) v.findViewById(R.id.res_cuisine);
             holder.res_distance = (TextView) v.findViewById(R.id.res_distance);
-            holder.res_linenum = (TextView) v.findViewById(R.id.res_linenum);
+            holder.res_waittime = (TextView) v.findViewById(R.id.res_waittime);
 
             v.setTag(holder);
 
@@ -57,30 +59,29 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
             holder = (ResListHolder)v.getTag();
         }
         Log.e("GETVIEW",": ");
-        //int width_image = (int) context.getResources().getDimension(R.dimen.small_image_width);
-        //int height_image = (int) context.getResources().getDimension(R.dimen.small_image_height);
+        int width_image = (int) parent.getWidth();
+        int height_image = (int) 900;
         ResListItem res_item = items.get(position);
 
         if(res_item!=null){
-            /*holder.res_name.setText(res_item.res_name);
+            holder.res_imgurl = res_item.res_imgurl;
+            holder.res_name.setText(res_item.res_name);
             //holder.res_name.setTypeface(mTypeface);
             holder.res_cuisine.setText(res_item.res_cuisine);
             //holder.res_cuisine.setTypeface(mTypeface);
             holder.res_distance.setText(res_item.res_distance);
             //holder.res_distance.setTypeface(mTypeface);
-            holder.res_linenum.setText(res_item.res_linenum);*/
+            holder.res_waittime.setText(res_item.res_waittime);
             //holder.res_imgurl = res_item.res_imgurl;
+            Picasso.with(this.context).load(res_item.res_imgurl).resize(width_image, height_image).centerCrop().into(holder.res_image);
+
         }
-        Log.e("Height:"," "+v.getWidth()+" "+v.getHeight());
         //setGlobalFont(parent);
-        //Picasso.with(this.context).load(res_item.res_imgurl).resize(v.getWidth(), v.getHeight()).centerCrop().into(holder.res_image);
-        Log.e("index", ":" + position);
 
         return v;
     }
 
     void setGlobalFont(ViewGroup root) {
-        Log.e("CHILD",": "+root.getChildCount());
         for (int i = 0; i < root.getChildCount(); i++) {
             View child = root.getChildAt(i);
             if (child instanceof TextView)
@@ -97,6 +98,6 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
         TextView res_name;
         TextView res_cuisine;
         TextView res_distance;
-        TextView res_linenum;
+        TextView res_waittime;
     }
 }

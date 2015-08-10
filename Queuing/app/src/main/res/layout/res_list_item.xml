@@ -14,7 +14,6 @@
             <ImageView
                 android:id="@+id/res_image"
                 android:layout_width="fill_parent"
-                android:background="@drawable/sample_img"
                 android:layout_height="300dp" />
             <FrameLayout
                 android:layout_width="fill_parent"
@@ -72,7 +71,7 @@
                             android:layout_gravity="right|center_vertical" />
 
                         <TextView
-                            android:id="@+id/res_linenum"
+                            android:id="@+id/res_waittime"
                             android:layout_width="72dp"
                             android:layout_height="40dp"
                             android:gravity="right"
