@@ -62,6 +62,7 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
         int width_image = (int) parent.getWidth();
         int height_image = (int) 900;
         ResListItem res_item = items.get(position);
+        Log.e("SIZE",":"+width_image+" "+height_image);
 
         if(res_item!=null){
             holder.res_imgurl = res_item.res_imgurl;

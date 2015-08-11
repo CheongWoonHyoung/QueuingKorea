@@ -30,12 +30,24 @@ import java.util.ArrayList;
  */
 public class Tab1_restaurants extends Fragment {
 
+    private static final int CALL_REQUEST = 123;
+
     Context mContext;
     ListView res_listview;
     ArrayList<ResListItem> items;
     ResListAdapter adapter;
 
     boolean lastItemVisibleFlag;
+
+    String name = null;
+    String cuisine = null;
+    int waiting_people = 0;
+    String img_large = null;
+    String timing = null;
+    String location = null;
+    Double x_coordinate = null;
+    Double y_coordinate = null;
+    String phone_num = null;
 
 
     @Override
@@ -53,7 +65,16 @@ public class Tab1_restaurants extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(mContext, RestaurantInfo.class);
-                startActivity(intent);
+                intent.putExtra("name",items.get(position).res_name);
+                intent.putExtra("cuisine",items.get(position).res_cuisine);
+                intent.putExtra("timing",items.get(position).res_timing);
+                intent.putExtra("img_large",items.get(position).res_imgurl);
+                intent.putExtra("location",items.get(position).res_location);
+                intent.putExtra("phone_num",items.get(position).res_phone_num);
+                intent.putExtra("x_coordinate",items.get(position).res_x_coordinate);
+                intent.putExtra("y_coordinate",items.get(position).res_y_coordinate);
+
+                startActivityForResult(intent,CALL_REQUEST);
             }
         });
         lastItemVisibleFlag = false;
@@ -124,12 +145,7 @@ public class Tab1_restaurants extends Fragment {
             Log.e("RESULT",result);
             String jsonall = result;
             JSONArray jArray = null;
-            String name = null;
-            String cuisine = null;
-            int waiting_people = 0;
-            String img_large = null;
-            Double x_coordinate = null;
-            Double y_coordinate = null;
+
             String distance = null;
             try{
                 jArray = new JSONArray(jsonall);
@@ -143,8 +159,10 @@ public class Tab1_restaurants extends Fragment {
                     waiting_people = json_data.getInt("waiting_people");
                     x_coordinate = json_data.getDouble("x_coordinate");
                     y_coordinate =json_data.getDouble("y_coordinate");
-
-                        items.add(new ResListItem(img_large, name, cuisine, "?", String.valueOf(waiting_people * 5)));
+                    location = json_data.getString("location");
+                    phone_num = json_data.getString("phone_num");
+                    timing = json_data.getString("timing");
+                    items.add(new ResListItem(img_large, name, cuisine, "?", String.valueOf(waiting_people * 5),x_coordinate,y_coordinate,location,timing,phone_num));
 
 
                 }

@@ -5,32 +5,32 @@
     android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/list_item"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="300dp"
         android:orientation="vertical">
         <RelativeLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="300dp">
             <ImageView
                 android:id="@+id/res_image"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="300dp" />
             <FrameLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:background="#88000000"
                 android:layout_alignParentBottom="true">
                 <RelativeLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:orientation="vertical"
-                    android:layout_height="fill_parent">
+                    android:layout_height="match_parent">
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="40dp">
                         <TextView
                             android:id="@+id/res_name"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:textColor="#FFFFFF"
                             android:gravity="bottom"
                             android:paddingBottom="3dp"
@@ -40,13 +40,13 @@
                             android:text="아웃백 스테이크 하우스"/>
                     </LinearLayout>
                     <LinearLayout
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_alignParentBottom="true"
                         android:layout_height="40dp">
                         <TextView
                             android:id="@+id/res_cuisine"
-                            android:layout_width="fill_parent"
-                            android:layout_height="fill_parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_marginRight="70dp"
                             android:textColor="#E0E0E0"
                             android:paddingLeft="20dp"
@@ -90,14 +90,14 @@
                             android:layout_width="40dp"
                             android:paddingTop="19dp"
                             android:paddingLeft="10dp"
-                            android:layout_height="fill_parent"
+                            android:layout_height="match_parent"
                             android:textColor="#E0E0E0"
                             android:textSize="15dp"
                             android:text="120"/>
 
                         <TextView
                             android:layout_width="30dp"
-                            android:layout_height="fill_parent"
+                            android:layout_height="match_parent"
                             android:layout_marginLeft="40dp"
                             android:text="m"
                             android:paddingLeft="3dp"
