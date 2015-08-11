@@ -1,5 +1,7 @@
 package com.unist.npc.queuing;
 
+import android.widget.ImageView;
+
 import java.util.ArrayList;
 
 /**
@@ -10,6 +12,7 @@ public class ResListItem extends ArrayList<ResListItem> {
     public String res_name;
     public String res_cuisine;
     public String res_distance;
+
     public String res_waittime;
 
     public ResListItem(String imgurl,String name, String cuisine, String distance,String waittime){
