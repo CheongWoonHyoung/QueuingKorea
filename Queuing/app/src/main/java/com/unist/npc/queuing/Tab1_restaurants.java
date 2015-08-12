@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -36,7 +37,7 @@ public class Tab1_restaurants extends Fragment {
     ListView res_listview;
     ArrayList<ResListItem> items;
     ResListAdapter adapter;
-
+    RelativeLayout layout_img;
     boolean lastItemVisibleFlag;
 
     String name = null;
@@ -53,11 +54,14 @@ public class Tab1_restaurants extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab1_restaurants, container, false);
-        mContext = container.getContext();
+        if(container!=null){
+            mContext = container.getContext();
 
         res_listview = (ListView) v.findViewById(R.id.res_list);
+       // layout_img = (RelativeLayout) v.findViewById(R.id.layout_large_img);
         items = new ArrayList<ResListItem>();
         adapter = new ResListAdapter(mContext,R.layout.res_list_item,items);
+
 
         new HttpPostRequst().execute("");
 
@@ -87,7 +91,7 @@ public class Tab1_restaurants extends Fragment {
                 lastItemVisibleFlag = (totalItemCount > 0) && (firstVisibleItem + visibleItemCount >= totalItemCount);
                 if(lastItemVisibleFlag){
                     Log.e("T&F","TRUE");
-                    for(int i=0;i<3;i++) items.add(new ResListItem(null,null,null,null,null));
+                    for(int i=0;i<3;i++) items.add(new ResListItem(0,null,null,null,null,null));
                     adapter.notifyDataSetChanged();
                 }
                 else Log.e("T&F","FALSE");
@@ -105,6 +109,7 @@ public class Tab1_restaurants extends Fragment {
             }
 
         });*/
+        }
         return v;
 
     }

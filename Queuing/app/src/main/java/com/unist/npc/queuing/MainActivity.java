@@ -1,6 +1,8 @@
 package com.unist.npc.queuing;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -11,11 +13,24 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.kakao.auth.APIErrorResult;
+import com.kakao.auth.AuthType;
+import com.kakao.auth.Session;
+import com.kakao.usermgmt.MeResponseCallback;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.UserProfile;
+import com.kakao.util.helper.log.Logger;
+
+import org.w3c.dom.Text;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -30,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private FrameLayout rightDrawer;
     private ActionBarDrawerToggle mDrawerToggle;
     FrameLayout map_btn;
+    private TextView mypage_btn;
 
     private int[] imageResId = {
             R.drawable.ic_tab_shop,
@@ -42,63 +58,93 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        map_btn = (FrameLayout)findViewById(R.id.map_btn);
-        map_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MapActivity.class);
-                startActivity(intent);
-            }
-        });
 
 
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("com.unist.npc.queuing.", Context.MODE_PRIVATE);
+        Boolean IsLogined= prefs.getBoolean("IsLogin",false);
+        Log.d("CREATE", "CREATE, is login? : " + IsLogined);
+        if(IsLogined) {
+            setContentView(R.layout.activity_main);
+            // Creating The Toolbar and setting it as the Toolbar for the activity
+            toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+            mypage_btn = (TextView) findViewById(R.id.main2mypage);
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle(null);
+            // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+            adapter = new ViewPagerAdapter(getSupportFragmentManager(), imageResId, Numboftabs, getApplicationContext());
+            // Assigning ViewPager View and setting the adapter
+            pager = (ViewPager) findViewById(R.id.pager);
+            pager.setAdapter(adapter);
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            rightDrawer = (FrameLayout) findViewById(R.id.rDrawer);
+            mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
 
+                /**
+                 * Called when a drawer has settled in a completely closed state.
+                 */
+                public void onDrawerClosed(View view) {
+                    super.onDrawerClosed(view);
+                }
 
-        // Creating The Toolbar and setting it as the Toolbar for the activity
-        toolbar = (Toolbar) findViewById(R.id.toolbar_main);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
-        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
-        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),imageResId,Numboftabs,getApplicationContext());
-        // Assigning ViewPager View and setting the adapter
-        pager = (ViewPager) findViewById(R.id.pager);
-        pager.setAdapter(adapter);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        rightDrawer = (FrameLayout) findViewById(R.id.rDrawer);
-        mDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.drawer_open,R.string.drawer_close) {
+                /**
+                 * Called when a drawer has settled in a completely open state.
+                 */
+                public void onDrawerOpened(View drawerView) {
+                    super.onDrawerOpened(drawerView);
+                }
+            };
+            mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-            }
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-            }
-        };
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        // Assiging the Sliding Tab Layout View
-        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+            // Assiging the Sliding Tab Layout View
+            tabs = (SlidingTabLayout) findViewById(R.id.tabs);
 //        tabs.setDistributeEvenly(false); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
 
-        // Setting Custom Color for the Scroll bar indicator of the Tab View
-        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
-            @Override
-            public int getIndicatorColor(int position) {
-                return getResources().getColor(R.color.tabsScrollColor);
-            }
-        });
+            // Setting Custom Color for the Scroll bar indicator of the Tab View
+            tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+                @Override
+                public int getIndicatorColor(int position) {
+                    return getResources().getColor(R.color.tabsScrollColor);
+                }
+            });
 
-        // Setting the ViewPager For the SlidingTabsLayout
-        tabs.setViewPager(pager);
+            // Setting the ViewPager For the SlidingTabsLayout
+            tabs.setViewPager(pager);
+            mypage_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    final Intent intent = new Intent(MainActivity.this, MypageActivity.class);
+                    startActivity(intent);
+                }
+            });
+            map_btn = (FrameLayout)findViewById(R.id.map_btn);
+            map_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(MainActivity.this, MapActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+        else{
+            //setContentView(R.layout.activity_login);
+            redirectLoginActivity();
+        }
     }
-
-
+    @Override
+    protected void onResume(){
+        super.onResume();
+        Log.d("RESUME","RESUME");
+    }
+    protected void showSignup() {
+        Logger.d("KAKAO", "not registered user");
+        redirectLoginActivity();
+    }
+    protected void redirectLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -158,5 +204,6 @@ public class MainActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(
                 bmpSource, newWidth, newHeight, true);
     }
+
 
 }
