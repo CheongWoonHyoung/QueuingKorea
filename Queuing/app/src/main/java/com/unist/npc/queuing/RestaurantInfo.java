@@ -9,7 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,10 +19,17 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import net.daum.mf.map.api.MapPOIItem;
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
+
 import org.w3c.dom.Text;
 
 
 public class RestaurantInfo extends AppCompatActivity {
+    private static final int CALL_REQUEST = 456;
+
+
     Toolbar toolbar;
     FrameLayout res_confirm;
 
@@ -36,13 +45,17 @@ public class RestaurantInfo extends AppCompatActivity {
     ImageView resinfo_image;
     TextView resinfo_name;
     TextView resinfo_cuisine;
+    TextView resinfo_cuisine2;
     TextView resinfo_timing;
     TextView resinfo_location;
     TextView resinfo_phone_num;
+    TextView resinfo_webpage;
     LinearLayout frame;
 
     int width_image;
     int height_image;
+
+    String username;
 
 
 
@@ -60,34 +73,53 @@ public class RestaurantInfo extends AppCompatActivity {
         phone_num = intent.getExtras().getString("phone_num");
         x_coordinate = intent.getExtras().getDouble("x_coordinate");
         y_coordinate = intent.getExtras().getDouble("y_coordinate");
+        username = intent.getExtras().getString("username");
         this.setResult(Activity.RESULT_OK);
 
 
         resinfo_image = (ImageView) findViewById(R.id.resinfo_image);
         resinfo_name = (TextView) findViewById(R.id.resinfo_name);
         resinfo_cuisine = (TextView) findViewById(R.id.resinfo_cuisine);
+        resinfo_cuisine2= (TextView) findViewById(R.id.resinfo_cuisine2);
         resinfo_timing = (TextView) findViewById(R.id.resinfo_timing);
         resinfo_location = (TextView) findViewById(R.id.resinfo_location);
         resinfo_phone_num = (TextView) findViewById(R.id.resinfo_phone_num);
+        resinfo_webpage = (TextView) findViewById(R.id.resinfo_webpage);
         frame = (LinearLayout) findViewById(R.id.resinfo_frame);
 
 
         resinfo_name.setText(name);
         resinfo_cuisine.setText(cuisine);
+        resinfo_cuisine2.setText(cuisine);
         resinfo_timing.setText(timing);
         resinfo_location.setText(location);
         resinfo_phone_num.setText(phone_num);
+        resinfo_webpage.setText("www.test.com");
 
         res_confirm = (FrameLayout)findViewById(R.id.res_confirm);
         res_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RestaurantInfo.this, ConfirmActivity.class);
-                startActivity(intent);
+                intent.putExtra("username",username);
+                intent.putExtra("resname",name);
+                startActivityForResult(intent, CALL_REQUEST);
             }
         });
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_rest_info);
+
+        final MapView mapView = new MapView(this);
+        mapView.setDaumMapApiKey("6f34a566bab64437f455521185842b3f");
+        ViewGroup mapViewContainer = (ViewGroup)findViewById(R.id.resinfo_map);
+        mapViewContainer.addView(mapView);
+        MapView.setMapTilePersistentCacheEnabled(true);
+
+        //mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+        mapView.setHDMapTileEnabled(true);
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(x_coordinate, y_coordinate), true);
+        mapView.setZoomLevel(2, true);
+        addMarker(mapView);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -123,6 +155,20 @@ public class RestaurantInfo extends AppCompatActivity {
         height_image = frame.getHeight();
         width_image = frame.getWidth();
         Picasso.with(getApplicationContext()).load(img_large).resize(width_image, height_image).centerCrop().into(resinfo_image);
+    }
+
+    public void addMarker(MapView mapView){
+        MapPOIItem marker = new MapPOIItem();
+        marker.setShowCalloutBalloonOnTouch(true);
+        marker.setShowDisclosureButtonOnCalloutBalloon(false);
+        marker.setItemName("Default Marker");
+        marker.setTag(0);
+        marker.setMapPoint(MapPoint.mapPointWithGeoCoord(x_coordinate, y_coordinate));
+        marker.setMarkerType(MapPOIItem.MarkerType.RedPin);
+        marker.setSelectedMarkerType(MapPOIItem.MarkerType.BluePin);
+
+
+        mapView.addPOIItem(marker);
     }
 
 

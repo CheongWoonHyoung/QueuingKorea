@@ -62,7 +62,7 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
         int width_image = (int) parent.getWidth();
         int height_image = (int) 900;
         ResListItem res_item = items.get(position);
-        Log.e("SIZE",":"+width_image+" "+height_image);
+        Log.e("SIZE",":"+width_image+" "+height_image+" "+v.getWidth());
 
         if(res_item!=null){
             holder.res_imgurl = res_item.res_imgurl;
@@ -74,7 +74,7 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
             //holder.res_distance.setTypeface(mTypeface);
             holder.res_waittime.setText(res_item.res_waittime);
             //holder.res_imgurl = res_item.res_imgurl;
-            Picasso.with(this.context).load(res_item.res_imgurl).resize(width_image, height_image).centerCrop().into(holder.res_image);
+            Picasso.with(this.context).load(res_item.res_imgurl).resize(1150, height_image).centerCrop().into(holder.res_image);
 
         }
         //setGlobalFont(parent);

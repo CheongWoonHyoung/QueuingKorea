@@ -14,6 +14,12 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.kakao.auth.APIErrorResult;
+import com.kakao.kakaotalk.KakaoTalkHttpResponseHandler;
+import com.kakao.kakaotalk.KakaoTalkProfile;
+import com.kakao.kakaotalk.KakaoTalkService;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -51,18 +57,32 @@ public class Tab1_restaurants extends Fragment {
     String phone_num = null;
 
 
+    String nickName;
+    String profileImageURL ;
+    String thumbnailURL ;
+    String countryISO ;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+        readProfile();
+
+
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab1_restaurants, container, false);
         if(container!=null){
             mContext = container.getContext();
 
-        res_listview = (ListView) v.findViewById(R.id.res_list);
+            res_listview = (ListView) v.findViewById(R.id.res_list);
        // layout_img = (RelativeLayout) v.findViewById(R.id.layout_large_img);
         items = new ArrayList<ResListItem>();
         adapter = new ResListAdapter(mContext,R.layout.res_list_item,items);
-
-
+            res_listview.setEnabled(false);
         new HttpPostRequst().execute("");
 
         res_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -77,6 +97,7 @@ public class Tab1_restaurants extends Fragment {
                 intent.putExtra("phone_num",items.get(position).res_phone_num);
                 intent.putExtra("x_coordinate",items.get(position).res_x_coordinate);
                 intent.putExtra("y_coordinate",items.get(position).res_y_coordinate);
+                intent.putExtra("username",nickName);
 
                 startActivityForResult(intent,CALL_REQUEST);
             }
@@ -167,8 +188,9 @@ public class Tab1_restaurants extends Fragment {
                     location = json_data.getString("location");
                     phone_num = json_data.getString("phone_num");
                     timing = json_data.getString("timing");
-                    items.add(new ResListItem(img_large, name, cuisine, "?", String.valueOf(waiting_people * 5),x_coordinate,y_coordinate,location,timing,phone_num));
-
+                    distance = String.valueOf((int)calDistance(37.557627, 126.936976,x_coordinate,y_coordinate));
+                    items.add(new ResListItem(img_large, name, cuisine, distance, String.valueOf(waiting_people * 5),x_coordinate,y_coordinate,location,timing,phone_num));
+                    Log.e("PROFILE",":"+i);
 
                 }
             }catch(Exception e){
@@ -182,5 +204,68 @@ public class Tab1_restaurants extends Fragment {
 
         }
     }
+
+    public double calDistance(double lat1, double lon1, double lat2, double lon2){
+
+        double theta, dist;
+        theta = lon1 - lon2;
+        dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1))
+                * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+
+        dist = dist * 60 * 1.1515;
+        dist = dist * 1.609344;    // 단위 mile 에서 km 변환.
+        dist = dist * 1000.0;      // 단위  km 에서 m 로 변환
+
+        return dist;
+    }
+
+    // 주어진 도(degree) 값을 라디언으로 변환
+    private double deg2rad(double deg){
+        return (double)(deg * Math.PI / (double)180d);
+    }
+
+    // 주어진 라디언(radian) 값을 도(degree) 값으로 변환
+    private double rad2deg(double rad){
+        return (double)(rad * (double)180d / Math.PI);
+    }
+
+    public void readProfile() {
+        KakaoTalkService.requestProfile(new MyTalkHttpResponseHandler<KakaoTalkProfile>() {
+            @Override
+            public void onHttpSuccess(final KakaoTalkProfile talkProfile) {
+                nickName = talkProfile.getNickName();
+                profileImageURL = talkProfile.getProfileImageURL();
+                thumbnailURL = talkProfile.getThumbnailURL();
+                countryISO = talkProfile.getCountryISO();
+                // display
+                Log.d("OPEND", "onHttpSuccess " + nickName);
+                res_listview.setEnabled(true);
+
+            }
+        });
+
+    }
+
+
+
+    private abstract class MyTalkHttpResponseHandler<T> extends KakaoTalkHttpResponseHandler<T> {
+        @Override
+        public void onHttpSessionClosedFailure(final APIErrorResult errorResult) {
+            //redirectLoginActivity();
+        }
+
+        @Override
+        public void onNotKakaoTalkUser(){
+            Toast.makeText(mContext, "not a KakaoTalk user", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onFailure(final APIErrorResult errorResult) {
+            Toast.makeText(mContext, "failed : " + errorResult, Toast.LENGTH_SHORT).show();
+        }
+    }
+
 
 }

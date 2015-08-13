@@ -20,6 +20,7 @@ public class ResListItem extends ArrayList<ResListItem> {
     public String res_distance;
 
     public String res_waittime;
+    public String res_website="www.test.com";
 
     public ResListItem(String imgurl,String name, String cuisine, String distance,String waittime,Double x_coordinate,Double y_coordinate,String location,String timing,String phone_num){
         this.res_imgurl = imgurl;

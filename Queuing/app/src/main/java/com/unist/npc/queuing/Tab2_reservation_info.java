@@ -11,9 +11,18 @@ import android.view.ViewGroup;
  * Created by hp1 on 21-01-2015.
  */
 public class Tab2_reservation_info extends Fragment {
+    Boolean isQueue = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.reserv_info,container,false);
+        View v = null;
+        if(isQueue){
+            v = inflater.inflate(R.layout.tab2_reservation_info,container,false);
+
+        }else{
+            v = inflater.inflate(R.layout.tab2_reservation_info_blank,container,false);
+
+        }
         return v;
     }
 }
