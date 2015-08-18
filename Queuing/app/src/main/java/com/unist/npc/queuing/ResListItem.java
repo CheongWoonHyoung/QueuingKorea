@@ -21,8 +21,9 @@ public class ResListItem extends ArrayList<ResListItem> {
 
     public String res_waittime;
     public String res_website="www.test.com";
+    public String res_dummyname;
 
-    public ResListItem(String imgurl,String name, String cuisine, String distance,String waittime,Double x_coordinate,Double y_coordinate,String location,String timing,String phone_num){
+    public ResListItem(String imgurl,String name, String cuisine, String distance,String waittime,Double x_coordinate,Double y_coordinate,String location,String timing,String phone_num,String dummyname){
         this.res_imgurl = imgurl;
         this.res_name = name;
         this.res_cuisine = cuisine;
@@ -33,5 +34,6 @@ public class ResListItem extends ArrayList<ResListItem> {
         this.res_location = location;
         this.res_timing = timing;
         this.res_phone_num = phone_num;
+        this.res_dummyname = dummyname;
     }
 }

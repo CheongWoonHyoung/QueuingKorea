@@ -24,6 +24,7 @@ public class ConfirmActivity extends Activity {
 
     String username;
     String resname;
+    String dummy_name;
     TextView confirm_btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +33,14 @@ public class ConfirmActivity extends Activity {
         Intent intent = getIntent();
         username=intent.getExtras().getString("username");
         resname =intent.getExtras().getString("resname");
+        dummy_name = intent.getExtras().getString("dummy_name");
         confirm_btn = (TextView) findViewById(R.id.confirm_btn);
         confirm_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new HttpPostRequest().execute("in",username,"","App",resname);
+                DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "reserv_info.db", null, 1);
+                if(manager.returnName().equals("nothing")) new HttpPostRequest().execute("in",username,"3","App",dummy_name);
+                else Toast.makeText(getApplicationContext(),"You already queue!",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -51,13 +55,13 @@ public class ConfirmActivity extends Activity {
             String sResult = "Error";
 
             try {
-                URL url = new URL("http://52.69.163.43/line_test.php");
+                URL url = new URL("http://52.69.163.43/queuing/line_manage.php");
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 conn.setRequestMethod("POST");
                 String body = "in_out=" + info[0] +"&"
                         +"name=" + info[1] + "&"
-                        +"number=" + info[2] + "&"
+                        +"party=" + info[2] + "&"
                         +"method=" + info[3] + "&"
                         +"resname=" + info[4];
 
@@ -86,10 +90,14 @@ public class ConfirmActivity extends Activity {
         @Override
         protected void onPostExecute(String result){
             Toast.makeText(getApplicationContext(), "Queuing complete!", Toast.LENGTH_SHORT).show();
+            DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "reserv_info.db", null, 1);
+            manager.insert("insert into RESERV_INFO values (" + Integer.getInteger(result) + ",'" + resname + "','3','" +dummy_name+ "')");
+            Log.e("CONFIRM",":"+manager.returnPid()+" "+manager.returnName()+" "+manager.returnParty());
             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         }
     }
+
 }

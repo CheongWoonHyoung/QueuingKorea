@@ -55,6 +55,7 @@ public class Tab1_restaurants extends Fragment {
     Double x_coordinate = null;
     Double y_coordinate = null;
     String phone_num = null;
+    String dummyname = null;
 
 
     String nickName;
@@ -98,6 +99,7 @@ public class Tab1_restaurants extends Fragment {
                 intent.putExtra("x_coordinate",items.get(position).res_x_coordinate);
                 intent.putExtra("y_coordinate",items.get(position).res_y_coordinate);
                 intent.putExtra("username",nickName);
+                intent.putExtra("dummy_name",items.get(position).res_dummyname);
 
                 startActivityForResult(intent,CALL_REQUEST);
             }
@@ -188,8 +190,9 @@ public class Tab1_restaurants extends Fragment {
                     location = json_data.getString("location");
                     phone_num = json_data.getString("phone_num");
                     timing = json_data.getString("timing");
+                    dummyname = json_data.getString("dummy_name");
                     distance = String.valueOf((int)calDistance(37.557627, 126.936976,x_coordinate,y_coordinate));
-                    items.add(new ResListItem(img_large, name, cuisine, distance, String.valueOf(waiting_people * 5),x_coordinate,y_coordinate,location,timing,phone_num));
+                    items.add(new ResListItem(img_large, name, cuisine, distance, String.valueOf(waiting_people * 5),x_coordinate,y_coordinate,location,timing,phone_num,dummyname));
                     Log.e("PROFILE",":"+i);
 
                 }

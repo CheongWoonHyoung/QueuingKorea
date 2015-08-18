@@ -14,7 +14,7 @@ public class DBManager_reserv extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE RESERV_LIST( _id INTEGER PRIMARY KEY AUTOINCREMENT, res_name TEXT, party TEXT);");
+        sqLiteDatabase.execSQL("CREATE TABLE RESERV_INFO( pid INTEGER PRIMARY KEY, res_name TEXT, party TEXT, dummy_name TEXT);");
     }
 
     @Override
@@ -40,11 +40,11 @@ public class DBManager_reserv extends SQLiteOpenHelper {
     }
 
 
-    public String returnData() {
+    public String returnPid() {
         SQLiteDatabase db = getReadableDatabase();
         String str = "nothing";
 
-        Cursor cursor = db.rawQuery("select _id from RESERV_LIST where _id=1", null);
+        Cursor cursor = db.rawQuery("select pid from RESERV_INFO", null);
         while(cursor.moveToNext()) {
             str = cursor.getString(0);
         }
@@ -56,7 +56,7 @@ public class DBManager_reserv extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String str = "nothing";
 
-        Cursor cursor = db.rawQuery("select party from RESERV_LIST where _id=1", null);
+        Cursor cursor = db.rawQuery("select party from RESERV_INFO", null);
         while(cursor.moveToNext()) {
             str = cursor.getString(0);
         }
@@ -67,7 +67,18 @@ public class DBManager_reserv extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         String str = "nothing";
 
-        Cursor cursor = db.rawQuery("select res_name from RESERV_LIST where _id=1", null);
+        Cursor cursor = db.rawQuery("select res_name from RESERV_INFO", null);
+        while(cursor.moveToNext()) {
+            str = cursor.getString(0);
+        }
+
+        return str;
+    }
+    public String returnDummyname() {
+        SQLiteDatabase db = getReadableDatabase();
+        String str = "nothing";
+
+        Cursor cursor = db.rawQuery("select dummy_name from RESERV_INFO", null);
         while(cursor.moveToNext()) {
             str = cursor.getString(0);
         }

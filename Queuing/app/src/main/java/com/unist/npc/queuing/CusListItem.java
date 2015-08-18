@@ -11,13 +11,12 @@ public class CusListItem {
     public String cus_time;
     public String cus_other;
 
-    public CusListItem(String priority,String name, String party, String time, String method, String other){
+    public CusListItem(String priority,String name, String party, String time, String method){
         this.cus_priority = priority;
         this.cus_name = name;
         this.cus_party = party;
         this.cus_method = method;
         this.cus_time = time;
-        this.cus_other = other;
 
     }
 }

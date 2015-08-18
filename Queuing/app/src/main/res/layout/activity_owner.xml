@@ -126,6 +126,7 @@
         android:layout_alignParentBottom="true"
         android:background="#8801579B">
         <TextView
+            android:id="@+id/adduser_btn"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"

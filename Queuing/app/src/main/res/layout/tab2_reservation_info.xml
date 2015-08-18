@@ -26,6 +26,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
                 <TextView
+                    android:id="@+id/resrv_rname"
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
                     android:textColor="#212121"
@@ -79,6 +80,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/confirm_name"/>
                 <TextView
+                    android:id="@+id/resrv_name"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:textSize="16dp"
@@ -102,6 +104,7 @@
                     android:gravity="center_vertical"
                     android:text="@string/confirm_party"/>
                 <TextView
+                    android:id="@+id/resrv_party"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:textStyle="bold"
@@ -164,6 +167,7 @@
                     android:text="남은 대기 시간"
                     android:textSize="14dp"/>
                 <TextView
+                    android:id="@+id/time_left"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:text="15 - 30"
@@ -199,6 +203,7 @@
                     android:text="남은 대기 인원"
                     android:textSize="14dp"/>
                 <TextView
+                    android:id="@+id/people_left"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:text="7"
@@ -231,6 +236,7 @@
                 android:elevation="3dp"
                 android:layout_height="40dp">
                 <TextView
+                    android:id="@+id/cancel_btn"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:gravity="center"

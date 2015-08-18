@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -41,6 +42,7 @@ public class RestaurantInfo extends AppCompatActivity {
     Double x_coordinate = null;
     Double y_coordinate = null;
     String phone_num = null;
+    String dummyname;
 
     ImageView resinfo_image;
     TextView resinfo_name;
@@ -74,6 +76,7 @@ public class RestaurantInfo extends AppCompatActivity {
         x_coordinate = intent.getExtras().getDouble("x_coordinate");
         y_coordinate = intent.getExtras().getDouble("y_coordinate");
         username = intent.getExtras().getString("username");
+        dummyname = intent.getExtras().getString("dummy_name");
         this.setResult(Activity.RESULT_OK);
 
 
@@ -100,16 +103,21 @@ public class RestaurantInfo extends AppCompatActivity {
         res_confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RestaurantInfo.this, ConfirmActivity.class);
-                intent.putExtra("username",username);
-                intent.putExtra("resname",name);
-                startActivityForResult(intent, CALL_REQUEST);
+                DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "reserv_info.db", null, 1);
+                if(manager.returnName().equals("nothing")){
+                    Intent intent = new Intent(RestaurantInfo.this, ConfirmActivity.class);
+                    intent.putExtra("username",username);
+                    intent.putExtra("resname",name);
+                    intent.putExtra("dummy_name",dummyname);
+                    startActivityForResult(intent, CALL_REQUEST);
+                }else Toast.makeText(getApplicationContext(), "You already queue!", Toast.LENGTH_LONG).show();
+
             }
         });
 
         toolbar = (Toolbar) findViewById(R.id.toolbar_rest_info);
 
-        final MapView mapView = new MapView(this);
+        /*final MapView mapView = new MapView(this);
         mapView.setDaumMapApiKey("6f34a566bab64437f455521185842b3f");
         ViewGroup mapViewContainer = (ViewGroup)findViewById(R.id.resinfo_map);
         mapViewContainer.addView(mapView);
@@ -119,7 +127,7 @@ public class RestaurantInfo extends AppCompatActivity {
         mapView.setHDMapTileEnabled(true);
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(x_coordinate, y_coordinate), true);
         mapView.setZoomLevel(2, true);
-        addMarker(mapView);
+        addMarker(mapView);*/
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

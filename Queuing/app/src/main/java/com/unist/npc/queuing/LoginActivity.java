@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.kakao.auth.APIErrorResult;
@@ -35,6 +36,8 @@ public class LoginActivity extends Activity {
     String profileImageURL ;
     String thumbnailURL ;
     String countryISO ;
+
+    TextView owner_login;
 
 
     @Override
