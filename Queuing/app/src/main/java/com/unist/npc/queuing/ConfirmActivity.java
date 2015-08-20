@@ -1,17 +1,159 @@
 package com.unist.npc.queuing;
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.kakao.auth.APIErrorResult;
+import com.kakao.usermgmt.MeResponseCallback;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.UserProfile;
 
 /**
  * Created by cheongwh on 2015. 8. 6..
  */
 public class ConfirmActivity extends Activity {
+
+    private TextView select1, select2, select3, select4, select5, select6, confirm_btn;
+    private int party_num;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm);
 
 
+        select1 = (TextView) findViewById(R.id.selection_1);
+        select2 = (TextView) findViewById(R.id.selection_2);
+        select3 = (TextView) findViewById(R.id.selection_3);
+        select4 = (TextView) findViewById(R.id.selection_4);
+        select5 = (TextView) findViewById(R.id.selection_5);
+        select6 = (TextView) findViewById(R.id.selection_6);
+        confirm_btn = (TextView) findViewById(R.id.confirm_btn);
+        select1.setOnClickListener(mOnClick);
+        select2.setOnClickListener(mOnClick);
+        select3.setOnClickListener(mOnClick);
+        select4.setOnClickListener(mOnClick);
+        select5.setOnClickListener(mOnClick);
+        select6.setOnClickListener(mOnClick);
+        confirm_btn.setOnClickListener(mOnClick);
+
+
+
     }
+
+    private View.OnClickListener mOnClick = new View.OnClickListener(){
+        @Override
+        public void onClick(View view) {
+            switch(view.getId()){
+                case R.id.selection_1: {
+                    party_num = 1;
+                    select1.setBackgroundColor(Color.parseColor("#B3E5FC"));
+                    select2.setBackgroundResource(0);
+                    select3.setBackgroundResource(0);
+                    select4.setBackgroundResource(0);
+                    select5.setBackgroundResource(0);
+                    select6.setBackgroundResource(0);
+
+                    break;
+                }
+                case R.id.selection_2: {
+                    party_num = 2;
+                    select1.setBackgroundResource(0);
+                    select2.setBackgroundColor(Color.parseColor("#B3E5FC"));
+                    select3.setBackgroundResource(0);
+                    select4.setBackgroundResource(0);
+                    select5.setBackgroundResource(0);
+                    select6.setBackgroundResource(0);
+                    break;
+                }
+                case R.id.selection_3: {
+                    party_num = 3;
+                    select1.setBackgroundResource(0);
+                    select2.setBackgroundResource(0);
+                    select3.setBackgroundColor(Color.parseColor("#B3E5FC"));
+                    select4.setBackgroundResource(0);
+                    select5.setBackgroundResource(0);
+                    select6.setBackgroundResource(0);
+                    break;
+                }
+                case R.id.selection_4: {
+                    party_num = 4;
+                    select1.setBackgroundResource(0);
+                    select2.setBackgroundResource(0);
+                    select3.setBackgroundResource(0);
+                    select4.setBackgroundColor(Color.parseColor("#B3E5FC"));
+                    select5.setBackgroundResource(0);
+                    select6.setBackgroundResource(0);
+                    break;
+                }
+                case R.id.selection_5: {
+                    party_num = 5;
+                    select1.setBackgroundResource(0);
+                    select2.setBackgroundResource(0);
+                    select3.setBackgroundResource(0);
+                    select4.setBackgroundResource(0);
+                    select5.setBackgroundColor(Color.parseColor("#B3E5FC"));
+                    select6.setBackgroundResource(0);
+                    break;
+                }
+                case R.id.selection_6: {
+                    party_num = 6;
+                    select1.setBackgroundResource(0);
+                    select2.setBackgroundResource(0);
+                    select3.setBackgroundResource(0);
+                    select4.setBackgroundResource(0);
+                    select5.setBackgroundResource(0);
+                    select6.setBackgroundColor(Color.parseColor("#B3E5FC"));
+                    break;
+                }
+                case R.id.confirm_btn: {
+                    requestMe();
+                    break;
+                }
+            }
+        }
+    };
+
+    private void requestMe() {
+        UserManagement.requestMe(new MeResponseCallback() {
+
+            @Override
+            public void onSuccess(final UserProfile userProfile) {
+                Log.d("SUCCESS", "UserProfile : " + userProfile + " & party num : " + party_num);
+                userProfile.saveUserToCache();
+            }
+
+            @Override
+            public void onNotSignedUp() {
+                //showSignup();
+            }
+
+            @Override
+            public void onSessionClosedFailure(final APIErrorResult errorResult) {
+            }
+
+            @Override
+            public void onFailure(final APIErrorResult errorResult) {
+                String message = "failed to get user info. msg=" + errorResult;
+                Log.d("FAIL", message);
+
+                if (errorResult.getErrorCodeInt() == -777) {
+                    Toast.makeText(getApplicationContext(), "SERVICE_UNAVAILABLE", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else {
+
+                }
+            }
+        });
+    }
+
+
 }

@@ -73,6 +73,9 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/selection_1"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:gravity="center"
@@ -85,6 +88,9 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/selection_2"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:gravity="center"
@@ -97,6 +103,9 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/selection_3"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:gravity="center"
@@ -109,6 +118,9 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/selection_4"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:gravity="center"
@@ -121,6 +133,9 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/selection_5"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:gravity="center"
@@ -133,6 +148,9 @@
                     android:layout_height="fill_parent"
                     android:layout_weight="1">
                     <TextView
+                        android:id="@+id/selection_6"
+                        android:clickable="true"
+                        android:background="?attr/selectableItemBackground"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:gravity="center"
@@ -198,6 +216,7 @@
             android:layout_marginRight="30dp"
             android:layout_height="40dp">
             <TextView
+                android:id="@+id/confirm_btn"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:gravity="center"
