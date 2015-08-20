@@ -9,11 +9,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kakao.auth.APIErrorResult;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.Session;
 import com.kakao.auth.SessionCallback;
+import com.kakao.kakaotalk.KakaoTalkHttpResponseHandler;
+import com.kakao.kakaotalk.KakaoTalkProfile;
+import com.kakao.kakaotalk.KakaoTalkService;
 import com.kakao.usermgmt.LoginButton;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
@@ -27,11 +32,19 @@ public class LoginActivity extends Activity {
     private Session session;
     private BackPressCloseHandler backPressCloseHandler;
 
+    String nickName;
+    String profileImageURL ;
+    String thumbnailURL ;
+    String countryISO ;
+
+    TextView owner_login;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Log.e("onCreate", "POP");
         backPressCloseHandler = new BackPressCloseHandler(this);
 
         //Session.initialize(getApplicationContext(), AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN);//MAKE ONLY POSSIBLE FOR KAKAOLOGIN
@@ -84,6 +97,7 @@ public class LoginActivity extends Activity {
                 // 프로그레스바 종료
                 Log.d("OPEND", "OPEN");
                 // 세션 오픈후 보일 페이지로 이동
+                readProfile();
                 SharedPreferences prefs = getApplicationContext().getSharedPreferences("com.unist.npc.queuing.", Context.MODE_PRIVATE);
                 if(!prefs.contains("IsLogin"))
                     prefs.edit().putBoolean("IsLogin",true).apply();
@@ -91,6 +105,7 @@ public class LoginActivity extends Activity {
                     prefs.edit().remove("IsLogin").apply();
                     prefs.edit().putBoolean("IsLogin",true).apply();
                 }
+
                 final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
@@ -115,6 +130,46 @@ public class LoginActivity extends Activity {
         //super.onBackPressed();
         backPressCloseHandler.onBackPressed();
         Session.initialize(this);
+    }
+
+    public void readProfile() {
+        KakaoTalkService.requestProfile(new MyTalkHttpResponseHandler<KakaoTalkProfile>() {
+            @Override
+            public void onHttpSuccess(final KakaoTalkProfile talkProfile) {
+                nickName = talkProfile.getNickName();
+                profileImageURL = talkProfile.getProfileImageURL();
+                thumbnailURL = talkProfile.getThumbnailURL();
+                countryISO = talkProfile.getCountryISO();
+                // display
+                Log.d("OPEND", "onHttpSuccess " + nickName);
+
+            }
+        });
+
+    }
+
+
+
+    private abstract class MyTalkHttpResponseHandler<T> extends KakaoTalkHttpResponseHandler<T> {
+        @Override
+        public void onHttpSessionClosedFailure(final APIErrorResult errorResult) {
+            redirectLoginActivity();
+        }
+
+        @Override
+        public void onNotKakaoTalkUser(){
+            Toast.makeText(getApplicationContext(), "not a KakaoTalk user", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onFailure(final APIErrorResult errorResult) {
+            Toast.makeText(getApplicationContext(), "failed : " + errorResult, Toast.LENGTH_SHORT).show();
+        }
+    }
+    private void redirectLoginActivity() {
+        final Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 

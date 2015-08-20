@@ -23,11 +23,13 @@
             android:orientation="vertical"
             android:layout_height="fill_parent">
             <LinearLayout
+                android:id="@+id/resinfo_frame"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:background="#E0E0E0"
                 android:layout_height="300dp">
                 <ImageView
+                    android:id="@+id/resinfo_image"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />
             </LinearLayout>
@@ -36,7 +38,7 @@
                 android:orientation="vertical"
                 android:layout_height="100dp">
                 <TextView
-                    android:id="@+id/res_name"
+                    android:id="@+id/resinfo_name"
                     android:layout_width="fill_parent"
                     android:layout_height="50dp"
                     android:textSize="20dp"
@@ -46,7 +48,7 @@
                     android:paddingBottom="8dp"
                     android:text="아웃백 스테이크 하우스"/>
                 <TextView
-                    android:id="@+id/res_cuisine"
+                    android:id="@+id/resinfo_cuisine"
                     android:layout_width="fill_parent"
                     android:textSize="14dp"
                     android:textColor="#212121"
@@ -90,6 +92,14 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/resinfo_cuisine2"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical|left"
+                            android:paddingRight="5dp"
+                            android:textSize="16dp"
+                            android:textColor="#212121"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -113,7 +123,14 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1">
-
+                        <TextView
+                            android:id="@+id/resinfo_timing"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical|left"
+                            android:paddingRight="5dp"
+                            android:textSize="16dp"
+                            android:textColor="#212121"/>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
@@ -136,6 +153,14 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/resinfo_location"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical|left"
+                            android:paddingRight="5dp"
+                            android:textSize="16dp"
+                            android:textColor="#212121"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -159,6 +184,14 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1">
+                        <TextView
+                            android:id="@+id/resinfo_phone_num"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical|left"
+                            android:paddingRight="5dp"
+                            android:textSize="16dp"
+                            android:textColor="#212121"/>
 
                     </LinearLayout>
                 </LinearLayout>
@@ -182,7 +215,14 @@
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"
                         android:layout_weight="1">
-
+                        <TextView
+                            android:id="@+id/resinfo_webpage"
+                            android:layout_width="fill_parent"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical|left"
+                            android:paddingRight="5dp"
+                            android:textSize="16dp"
+                            android:textColor="#212121"/>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -236,10 +276,12 @@
 
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/res_map"
+                android:id="@+id/resinfo_map"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="200dp">
+                android:layout_height="200dp"
+                android:clickable="false">
+
 
             </LinearLayout>
             <LinearLayout
@@ -280,7 +322,7 @@
             android:layout_height="fill_parent"
             android:gravity="center"
             android:textSize="16dp"
-            android:background="#6629B6F6"
+            android:background="#AA29B6F6"
             android:text="Queuing!"/>
     </FrameLayout>
 </RelativeLayout>

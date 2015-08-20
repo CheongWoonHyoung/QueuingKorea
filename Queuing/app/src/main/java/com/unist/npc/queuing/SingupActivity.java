@@ -42,6 +42,7 @@ public class SingupActivity extends Activity {
      */
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         Log.d("FIRST","IT's THE FIRST");
         Session.initialize(this);
@@ -57,7 +58,7 @@ public class SingupActivity extends Activity {
     }
 
     protected void redirectMainActivity() {
-        final Intent intent = new Intent(this, MainActivity.class);
+        final Intent intent = new Intent(this, OwnerActivity.class);
         startActivity(intent);
         finish();
     }
