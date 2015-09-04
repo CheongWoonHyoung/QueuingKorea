@@ -19,4 +19,7 @@ public class CusListItem {
         this.cus_time = time;
 
     }
+
+    public String getCus_name() { return cus_name;}
+
 }

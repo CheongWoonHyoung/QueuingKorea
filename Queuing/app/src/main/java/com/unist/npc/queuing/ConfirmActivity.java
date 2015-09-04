@@ -32,7 +32,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * Created by cheongwh on 2015. 8. 6..
+ * Created by npc on 2015. 8. 6..
  */
 public class ConfirmActivity extends Activity {
 
@@ -49,17 +49,6 @@ public class ConfirmActivity extends Activity {
         username=intent.getExtras().getString("username");
         resname =intent.getExtras().getString("resname");
         dummy_name = intent.getExtras().getString("dummy_name");
-        confirm_btn = (TextView) findViewById(R.id.confirm_btn);
-        confirm_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "reserv_info.db", null, 1);
-                if(manager.returnName().equals("nothing")) new HttpPostRequest().execute("in",username,"3","App",dummy_name);
-                else Toast.makeText(getApplicationContext(),"You already queue!",Toast.LENGTH_LONG).show();
-            }
-        });
-
-
 
         select1 = (TextView) findViewById(R.id.selection_1);
         select2 = (TextView) findViewById(R.id.selection_2);
@@ -68,6 +57,7 @@ public class ConfirmActivity extends Activity {
         select5 = (TextView) findViewById(R.id.selection_5);
         select6 = (TextView) findViewById(R.id.selection_6);
         confirm_btn = (TextView) findViewById(R.id.confirm_btn);
+
         select1.setOnClickListener(mOnClick);
         select2.setOnClickListener(mOnClick);
         select3.setOnClickListener(mOnClick);
@@ -146,7 +136,9 @@ public class ConfirmActivity extends Activity {
                     break;
                 }
                 case R.id.confirm_btn: {
-                    requestMe();
+                    DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "reserv_info.db", null, 1);
+                    if(manager.returnName().equals("nothing")) new HttpPostRequest().execute("in",username,"3","App",dummy_name);
+                    else Toast.makeText(getApplicationContext(),"You already queue!",Toast.LENGTH_LONG).show();
                     break;
                 }
             }

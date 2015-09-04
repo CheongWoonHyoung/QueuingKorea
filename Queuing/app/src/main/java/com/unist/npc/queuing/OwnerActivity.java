@@ -1,5 +1,7 @@
 package com.unist.npc.queuing;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,7 +11,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,10 +73,10 @@ public class OwnerActivity extends AppCompatActivity {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 if (items.size() == 0) {
-                    items.add(new CusListItem("1", reservDialog._name, reservDialog._number, "13:00", "Offline"));
+                    items.add(new CusListItem("1", reservDialog._name, reservDialog._number, "13:00", "OFFLINE"));
 
                 } else {
-                    items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), reservDialog._name, reservDialog._number, "13:00", "Offline"));
+                    items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), reservDialog._name, reservDialog._number, "13:00", "OFFLINE"));
 
                 }
                 adapter.notifyDataSetChanged();
@@ -185,4 +189,54 @@ public class OwnerActivity extends AppCompatActivity {
 
         }
     }
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String name = intent.getStringExtra("name");
+            String num = intent.getStringExtra("num");
+            int find_index = 0;
+            Log.d("MSG_RECEIVED", "message : " + name + " " + num);
+            if(num.length()==4) { //9999 for delete
+                for (int i = 0; i < items.size(); i++) {
+                    if (name.equals(items.get(i).getCus_name())) {
+                        find_index = i;
+                        break;
+                    }
+                }
+                if (cus_list.getChildAt(find_index) == null) {
+                    items.remove(find_index);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    LinearLayout cus_item = (LinearLayout) cus_list.getChildAt(find_index).findViewById(R.id.cuslist_item);
+                    items.remove(find_index);
+                    adapter.notifyDataSetChanged();
+                   /* ex_Ani = new ExpandAnimation(cus_item, 500);
+                    final int i = find_index;
+                    ex_Ani.setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            items.remove(i);
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+
+                        }
+                    });
+                    cus_item.startAnimation(ex_Ani);*/
+                }
+            }
+            else{
+                Log.d("MSG",num);
+                items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size()-1).cus_priority) + 1), name, num, "13:00", "ONLINE"));
+                adapter.notifyDataSetChanged();
+            }
+        }
+    };
 }

@@ -3,10 +3,13 @@ package com.unist.npc.queuing;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
@@ -22,6 +25,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.kakao.auth.APIErrorResult;
 import com.kakao.auth.AuthType;
 import com.kakao.auth.Session;
@@ -32,11 +36,14 @@ import com.kakao.util.helper.log.Logger;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
+
 
 public class MainActivity extends AppCompatActivity {
 
-    // Declaring Your View and Variables
 
+
+    // Declaring Your View and Variables
     private Toolbar toolbar;
     private ViewPager pager;
     private ViewPagerAdapter adapter;
@@ -109,6 +116,8 @@ public class MainActivity extends AppCompatActivity {
 
             // Setting the ViewPager For the SlidingTabsLayout
             tabs.setViewPager(pager);
+
+
             mypage_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -204,6 +213,5 @@ public class MainActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(
                 bmpSource, newWidth, newHeight, true);
     }
-
 
 }
