@@ -76,8 +76,12 @@ public class SingupActivity extends Activity {
             registerInBackground();
         }
 
+        //ONLY FOR TEST AND DEBUGGING, TO BE DELETED
+        final Intent intent = new Intent(this, OwnerActivity.class);
+        startActivity(intent);
+        finish();
 
-        requestMe();
+        // requestMe();
     }
 
     /**

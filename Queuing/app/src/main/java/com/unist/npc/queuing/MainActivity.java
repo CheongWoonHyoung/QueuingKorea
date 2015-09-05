@@ -41,7 +41,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-
+    private BackPressCloseHandler backPressCloseHandler;
 
     // Declaring Your View and Variables
     private Toolbar toolbar;
@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         Log.d("CREATE", "CREATE, is login? : " + IsLogined);
         if(IsLogined) {
             setContentView(R.layout.activity_main);
+            backPressCloseHandler = new BackPressCloseHandler(this);
             // Creating The Toolbar and setting it as the Toolbar for the activity
             toolbar = (Toolbar) findViewById(R.id.toolbar_main);
             mypage_btn = (TextView) findViewById(R.id.main2mypage);
@@ -213,5 +214,11 @@ public class MainActivity extends AppCompatActivity {
         return Bitmap.createScaledBitmap(
                 bmpSource, newWidth, newHeight, true);
     }
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
+    }
+
 
 }
