@@ -323,6 +323,7 @@
             android:gravity="center"
             android:textSize="16dp"
             android:background="#AA29B6F6"
-            android:text="Queuing!"/>
+            android:text="Queuing!"
+            android:textColor="#ffffff"/>
     </FrameLayout>
 </RelativeLayout>

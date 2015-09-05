@@ -195,7 +195,8 @@ public class ConfirmActivity extends Activity {
                         +"name=" + info[1] + "&"
                         +"party=" + info[2] + "&"
                         +"method=" + info[3] + "&"
-                        +"resname=" + info[4];
+                        +"resname=" + info[4];// + "&"
+                       // +"regid=" + info[5];
 
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 osw.write(body);

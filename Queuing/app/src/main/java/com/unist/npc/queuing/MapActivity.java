@@ -62,6 +62,17 @@ public class MapActivity extends Activity implements LocationListener, MapView.P
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MapActivity.this, RestaurantInfo.class);
+                intent.putExtra("name","아웃백 스테이크 신촌점");
+                intent.putExtra("cuisine","스테이크, 패밀리 레스토랑");
+                intent.putExtra("timing","11:00 - 22:00");
+                intent.putExtra("img_large","http://52.69.163.43/queuing/img/large/outback_large.png");
+                intent.putExtra("location","서울특별시 서대문구 연세로12길 33 아웃백 스테이크 전문점");
+                intent.putExtra("phone_num","02-3147-1871");
+                intent.putExtra("x_coordinate",37.5592750);
+                intent.putExtra("y_coordinate",126.9387700);
+                intent.putExtra("username","정운");
+                intent.putExtra("dummy_name","outback_sinchon");
+
                 startActivity(intent);
             }
         });

@@ -53,8 +53,13 @@ public class Tab2_reservation_info extends Fragment {
             cancel_btn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    manager = new DBManager_reserv(mContext, "reserv_info.db", null, 1);
+                    manager.delete("delete from RESERV_INFO");
                     Log.e("pass", manager.returnPid());
-                    new HttpPostRequest().execute("out",manager.returnPid(),manager.returnDummyname());
+                    new HttpPostRequest().execute("out", manager.returnPid(), manager.returnDummyname());
+                    Intent intent = new Intent(mContext,MainActivity.class);
+                    startActivity(intent);
+                    onCreateView(inflater,container,savedInstanceState);
                 }
             });
 
@@ -80,6 +85,8 @@ public class Tab2_reservation_info extends Fragment {
                 String body = "in_out=" + info[0] +"&"
                         +"priority=" + info[1] + "&"
                         +"resname=" + info[2];
+
+                Log.e("value",info[0]+" "+info[1]+" "+info[2]);
 
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 osw.write(body);
