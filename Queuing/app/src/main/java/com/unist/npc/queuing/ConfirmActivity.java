@@ -137,7 +137,7 @@ public class ConfirmActivity extends Activity {
                 }
                 case R.id.confirm_btn: {
                     DBManager_reserv manager = new DBManager_reserv(getApplicationContext(), "reserv_info.db", null, 1);
-                    if(manager.returnName().equals("nothing")) new HttpPostRequest().execute("in",username,"3","App",dummy_name);
+                    if(manager.returnName().equals("nothing")) new HttpPostRequest().execute("in",username,String.valueOf(party_num),"App",dummy_name,"APA91bGy1gqUVGGApf8FB3jIwyxf_M9E6neq2DL3fMTKihht6t2CBpuL2qKdQUDkk-knqHXkKCRSK2h0l6ANvVA-yAteAO9gw7A8FmA6gkqvccPqFQOAOcAnZKz_uavR715ty6Q1J47V");
                     else Toast.makeText(getApplicationContext(),"You already queue!",Toast.LENGTH_LONG).show();
                     break;
                 }
@@ -195,8 +195,8 @@ public class ConfirmActivity extends Activity {
                         +"name=" + info[1] + "&"
                         +"party=" + info[2] + "&"
                         +"method=" + info[3] + "&"
-                        +"resname=" + info[4];// + "&"
-                       // +"regid=" + info[5];
+                        +"resname=" + info[4]+ "&"
+                        +"regid=" + info[5];
 
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 osw.write(body);
@@ -211,7 +211,7 @@ public class ConfirmActivity extends Activity {
                     builder.append(str);
                 }
                 sResult     = builder.toString();
-                Log.e("pass", sResult);
+                Log.e("CHECK", sResult);
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             } catch (IOException e) {

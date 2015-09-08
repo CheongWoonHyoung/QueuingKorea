@@ -2,6 +2,9 @@ package com.unist.npc.queuing;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,6 +28,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
@@ -63,11 +67,14 @@ public class Tab1_restaurants extends Fragment {
     String thumbnailURL ;
     String countryISO ;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         readProfile();
+        new HttpPostRequest2().execute("APA91bGy1gqUVGGApf8FB3jIwyxf_M9E6neq2DL3fMTKihht6t2CBpuL2qKdQUDkk-knqHXkKCRSK2h0l6ANvVA-yAteAO9gw7A8FmA6gkqvccPqFQOAOcAnZKz_uavR715ty6Q1J47V",nickName);
 
 
 
@@ -76,6 +83,7 @@ public class Tab1_restaurants extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.tab1_restaurants, container, false);
+
         if(container!=null){
             mContext = container.getContext();
 
@@ -84,7 +92,7 @@ public class Tab1_restaurants extends Fragment {
         items = new ArrayList<ResListItem>();
         adapter = new ResListAdapter(mContext,R.layout.res_list_item,items);
             res_listview.setEnabled(false);
-        new HttpPostRequst().execute("");
+        new HttpPostRequest().execute("");
 
         res_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,7 +144,7 @@ public class Tab1_restaurants extends Fragment {
         return v;
 
     }
-    public class HttpPostRequst extends AsyncTask<String,Void,String>{
+    public class HttpPostRequest extends AsyncTask<String,Void,String>{
         String sResult="error";
         @Override
         protected String doInBackground(String... info) {
@@ -270,5 +278,61 @@ public class Tab1_restaurants extends Fragment {
         }
     }
 
+    private class HttpPostRequest2 extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... info) {
+            String sResult = "Error";
+
+            try {
+                URL url = new URL("http://52.69.163.43/queuing/user_enroll.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setRequestMethod("POST");
+
+                String body = "regid=" + info[0] +"&"
+                        +"name=" + info[1];
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                osw.write(body);
+                osw.flush();
+
+
+                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                BufferedReader reader = new BufferedReader(tmp);
+                StringBuilder builder = new StringBuilder();
+                String str;
+
+                while ((str = reader.readLine()) != null) {
+                    builder.append(str);
+                }
+                sResult     = builder.toString();
+                Log.e("enroll", sResult);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sResult;
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+
+        }
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
 
 }

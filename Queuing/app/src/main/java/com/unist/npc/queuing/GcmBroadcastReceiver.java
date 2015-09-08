@@ -14,13 +14,13 @@ public class GcmBroadcastReceiver extends WakefulBroadcastReceiver
     public void onReceive(Context context, Intent intent)
     {
       //  if(AccountInfoActivity.getNotification_ONOFF(context)) { // Later for switch the alarm service, TO BE EDITED
-            Log.i("GcmBroadcast onReceive", "|" + "=================" + "|");
+            Log.e("CHECK", "|" + "=================" + "|");
             Bundle bundle = intent.getExtras();
             for (String key : bundle.keySet()) {
                 Object value = bundle.get(key);
-                Log.i("GcmBroadcast onReceive", "|" + String.format("%s : %s (%s)", key, value.toString(), value.getClass().getName()) + "|");
+                Log.e("CHECK", "|" + String.format("%s : %s (%s)", key, value.toString(), value.getClass().getName()) + "|");
             }
-            Log.i("GcmBroadcast onReceive", "|" + "=================" + "|");
+            Log.e("CHECK", "|" + "=================" + "|");
 
             // Explicitly specify that GcmIntentService will handle the intent.
             ComponentName comp = new ComponentName(context.getPackageName(), GcmIntentService.class.getName());

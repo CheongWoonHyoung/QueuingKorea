@@ -6,12 +6,9 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -23,8 +20,6 @@ import com.squareup.picasso.Picasso;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
-
-import org.w3c.dom.Text;
 
 
 public class RestaurantInfo extends AppCompatActivity {
@@ -53,6 +48,7 @@ public class RestaurantInfo extends AppCompatActivity {
     TextView resinfo_phone_num;
     TextView resinfo_webpage;
     LinearLayout frame;
+    CustomscrollViewformap scroll;
 
     int width_image;
     int height_image;
@@ -122,11 +118,19 @@ public class RestaurantInfo extends AppCompatActivity {
         ViewGroup mapViewContainer = (ViewGroup)findViewById(R.id.resinfo_map);
         mapViewContainer.addView(mapView);
         MapView.setMapTilePersistentCacheEnabled(true);
-
-        //mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+        mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
         mapView.setHDMapTileEnabled(true);
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(x_coordinate, y_coordinate), true);
         mapView.setZoomLevel(2, true);
+        mapView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_MOVE){
+                    return true;
+                }
+                return false;
+            }
+        });
         addMarker(mapView);*/
 
         setSupportActionBar(toolbar);

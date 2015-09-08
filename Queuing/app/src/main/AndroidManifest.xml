@@ -40,6 +40,12 @@
                 android:value="com.unist.npc.queuing.MainActivity" />
         </activity>
         <activity
+            android:name=".Owner_mainActivity"
+            android:label="Owner_mainActivity"/>
+        <activity
+            android:name=".TableActivity"
+            android:label="TableActivity"/>
+        <activity
             android:name=".ConfirmActivity"
             android:label="ConfirmActivity" />
         <activity

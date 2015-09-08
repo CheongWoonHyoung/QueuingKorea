@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +43,8 @@ public class OwnerActivity extends AppCompatActivity {
     ReservDialog reservDialog;
     TextView adduser_btn;
 
+    String user_regid;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +57,8 @@ public class OwnerActivity extends AppCompatActivity {
         cus_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                new HttpPostRequest_2().execute("out", items.get(position).cus_priority, owner_name,"","","");
+                Log.e("pass","regid: "+items.get(position).cus_regid);
+                new HttpPostRequest_2().execute("out", items.get(position).cus_priority, owner_name,"",items.get(position).cus_name,items.get(position).cus_method,items.get(position).cus_regid);
                 items.remove(position);
                 adapter.notifyDataSetChanged();
             }
@@ -73,16 +77,16 @@ public class OwnerActivity extends AppCompatActivity {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
                 if (items.size() == 0) {
-                    items.add(new CusListItem("1", reservDialog._name, reservDialog._number, "13:00", "OFFLINE"));
+                    items.add(new CusListItem("1", reservDialog._name, reservDialog._number, "13:00", "OFFLINE",""));
 
                 } else {
-                    items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), reservDialog._name, reservDialog._number, "13:00", "OFFLINE"));
+                    items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), reservDialog._name, reservDialog._number, "13:00", "OFFLINE",""));
 
                 }
                 adapter.notifyDataSetChanged();
 
 
-                new HttpPostRequest_2().execute("in", String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), owner_name, reservDialog._number, reservDialog._name, "OFFLINE");
+                new HttpPostRequest_2().execute("in", String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), owner_name, reservDialog._number, reservDialog._name, "OFFLINE","");
 
             }
         });
@@ -135,7 +139,7 @@ public class OwnerActivity extends AppCompatActivity {
                 jarray = new JSONArray(result);
                 for(int i=0;i<jarray.length();i++){
                     jobj = jarray.getJSONObject(i);
-                    items.add(new CusListItem(jobj.getString("pid"),jobj.getString("name"),jobj.getString("party"),jobj.getString("time"),jobj.getString("method")));
+                    items.add(new CusListItem(jobj.getString("pid"),jobj.getString("name"),jobj.getString("party"),jobj.getString("time"),jobj.getString("method"),""));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -160,7 +164,9 @@ public class OwnerActivity extends AppCompatActivity {
                         +"resname=" + info[2] + "&"
                         +"party=" + info[3] + "&"
                         +"name=" + info[4] + "&"
-                        +"method=" + info[5];
+                        +"method=" + info[5] + "&"
+                        +"regid=" +info[6]+ "&"
+                        +"location=tablet";
 
                 OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
                 osw.write(body);
@@ -195,8 +201,9 @@ public class OwnerActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             String name = intent.getStringExtra("name");
             String num = intent.getStringExtra("num");
+            user_regid = intent.getStringExtra("regid");
             int find_index = 0;
-            Log.d("MSG_RECEIVED", "message : " + name + " " + num);
+            Log.d("MSG_RECEIVED", "message : " + name + " " + num + " " + user_regid.charAt(0));
             if(num.length()==4) { //9999 for delete
                 for (int i = 0; i < items.size(); i++) {
                     if (name.equals(items.get(i).getCus_name())) {
@@ -233,10 +240,29 @@ public class OwnerActivity extends AppCompatActivity {
                 }
             }
             else{
-                Log.d("MSG",num);
-                items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size()-1).cus_priority) + 1), name, num, "13:00", "ONLINE"));
+                if (items.size() == 0) {
+                    items.add(new CusListItem("1", name, num, "13:00", "App",user_regid));
+
+                } else {
+                    items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), name, num, "13:00", "App",user_regid));
+
+                }
                 adapter.notifyDataSetChanged();
             }
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getApplicationContext().registerReceiver(mReceiver,new IntentFilter("key"));
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+
+        getApplicationContext().unregisterReceiver(mReceiver);
+    }
 }

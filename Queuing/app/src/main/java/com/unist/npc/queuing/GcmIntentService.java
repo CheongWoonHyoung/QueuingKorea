@@ -35,8 +35,10 @@ public class GcmIntentService extends IntentService
         String messageType = gcm.getMessageType(intent);
         String u_name = extras.getString("user_name");
         String num_party = extras.getString("num_party");
+        String user_regid = extras.getString("user_regid");
+        String update = extras.getString("update");
         String exp_time = extras.getString("expected_time");
-        Log.d("NPC", "user name is " + extras.get("user_name"));
+        Log.e("CHECK", "user name is " + extras.get("user_name"));
         if (!extras.isEmpty())
         { // has effect of unparcelling Bundle
       /*
@@ -58,11 +60,19 @@ public class GcmIntentService extends IntentService
             {
                 // Post notification of received message.
 //             sendNotification("Received: " + extras.toString());
-                updateMyActivity(getApplicationContext(), u_name, num_party);
 
-                if(num_party== null)//Notification for CUSTOMER
-                    sendNotification("You are now 5th / expected time = 25"); //+ exp_time);
-                Log.i("IntentService onHandle", "Received: " + extras.toString());
+                if(num_party== null) {//Notification for CUSTOMER
+                    intent.putExtra("update", update);
+
+                    if(update == null) updateMyActivity_customer_delete(getApplicationContext());
+                    else updateMyActivity_customer_update(getApplicationContext(),update);
+
+                    //sendNotification("You are now 5th / expected time = 25"); //+ exp_time);
+                    Log.i("IntentService onHandle", "Received: " + extras.toString());
+                }else{
+                    updateMyActivity_owner(getApplicationContext(), u_name, num_party, user_regid);
+
+                }
             }
         }
         // Release the wake lock provided by the WakefulBroadcastReceiver.
@@ -74,13 +84,30 @@ public class GcmIntentService extends IntentService
     // This is just one simple example of what you might choose to do with
     // a GCM message.
 
-    private void updateMyActivity(Context context, String name, String num){
+    private void updateMyActivity_owner(Context context, String name, String num,String user_regid){
         Intent intent = new Intent("key");
         intent.putExtra("name",name);
         intent.putExtra("num",num);
+        intent.putExtra("regid",user_regid);
       //  intent.putExtra("msg",msg);
         context.sendBroadcast(intent);
     }
+    private void updateMyActivity_customer_delete(Context context){
+        Intent intent = new Intent("cus");
+        context.sendBroadcast(intent);
+    }
+    private void updateMyActivity_customer_update(Context context,String update){
+
+        Intent intent = new Intent("up");
+        intent.putExtra("update", update);
+        Log.e("CHECK", "update "+ update);
+
+        DBManager_update manager = new DBManager_update(getApplicationContext(), "update_info.db", null, 1);
+        manager.insert("insert into UPDATE_INFO values ('"+update+"')");
+
+        context.sendBroadcast(intent);
+    }
+
     private void sendNotification(String msg)
     {
         NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

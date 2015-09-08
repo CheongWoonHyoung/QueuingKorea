@@ -1,7 +1,9 @@
 package com.unist.npc.queuing;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -54,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout map_btn;
     private TextView mypage_btn;
 
+    DBManager_reserv manager;
+
+
     private int[] imageResId = {
             R.drawable.ic_tab_shop,
             R.drawable.ic_tab_reserv_info,
@@ -86,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
             mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
             rightDrawer = (FrameLayout) findViewById(R.id.rDrawer);
             mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
-
                 /**
                  * Called when a drawer has settled in a completely closed state.
                  */
@@ -141,11 +145,7 @@ public class MainActivity extends AppCompatActivity {
             redirectLoginActivity();
         }
     }
-    @Override
-    protected void onResume(){
-        super.onResume();
-        Log.d("RESUME","RESUME");
-    }
+
     protected void showSignup() {
         Logger.d("KAKAO", "not registered user");
         redirectLoginActivity();
@@ -220,5 +220,30 @@ public class MainActivity extends AppCompatActivity {
         backPressCloseHandler.onBackPressed();
     }
 
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            manager = new DBManager_reserv(context, "reserv_info.db", null, 1);
+            Log.e("CHECK", "onReceive");
+            manager.delete("delete from RESERV_INFO");
+            adapter.notifyDataSetChanged();
+        }
+    };
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("CHECK", "main onResume");
+
+        getApplicationContext().registerReceiver(mReceiver, new IntentFilter("cus"));
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        Log.e("CHECK", "main onPause");
+        getApplicationContext().unregisterReceiver(mReceiver);
+    }
 
 }

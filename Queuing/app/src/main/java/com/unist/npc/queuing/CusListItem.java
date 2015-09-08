@@ -9,14 +9,15 @@ public class CusListItem {
     public String cus_party;
     public String cus_method;
     public String cus_time;
-    public String cus_other;
+    public String cus_regid;
 
-    public CusListItem(String priority,String name, String party, String time, String method){
+    public CusListItem(String priority,String name, String party, String time, String method, String regid){
         this.cus_priority = priority;
         this.cus_name = name;
         this.cus_party = party;
         this.cus_method = method;
         this.cus_time = time;
+        this.cus_regid = regid;
 
     }
 
