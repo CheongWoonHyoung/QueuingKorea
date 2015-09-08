@@ -154,15 +154,21 @@ public class Tab2_reservation_info extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            manager_update = new DBManager_update(mContext, "update_info.db", null, 1);
+            manager_update = new DBManager_update(mContext, "update_info2.db", null, 1);
             Log.e("CHECK", manager_update.returnPid());
-            if(manager_update.returnPid().equals("nothing")){
-            }else if(manager_update.returnPid().equals("1000")){
-                people_left.setText(String.valueOf(Integer.parseInt(people_left.getText().toString())-1));
-            }else{
-                people_left.setText(String.valueOf(Integer.parseInt(manager_update.returnPid())-1));
+            manager = new DBManager_reserv(mContext, "reserv_info.db", null, 1);
+            Log.e("info"," "+manager.returnName());
+            if(manager.returnName().equals("nothing")) isQueue = false;
+            else isQueue = true;
+            if(isQueue){
+                if(manager_update.returnPid().equals("nothing")){
+                }else if(manager_update.returnPid().equals("1000")){
+                    people_left.setText(String.valueOf(Integer.parseInt(people_left.getText().toString())-1));
+                }else{
+                    people_left.setText(String.valueOf(Integer.parseInt(manager_update.returnPid()) - 1));
+                }
+                manager_update.delete("delete from UPDATE_INFO");
             }
-            manager_update.delete("delete from UPDATE_INFO");
         }
     };
     @Override
@@ -170,15 +176,23 @@ public class Tab2_reservation_info extends Fragment {
         super.onResume();
 
         mContext.registerReceiver(mReceiver, new IntentFilter("up"));
-        manager_update = new DBManager_update(mContext, "update_info.db", null, 1);
+        manager_update = new DBManager_update(mContext, "update_info2.db", null, 1);
         Log.e("CHECK", manager_update.returnPid());
-        if(manager_update.returnPid().equals("nothing")){
-        }else if(manager_update.returnPid().equals("1000")){
-            people_left.setText(String.valueOf(Integer.parseInt(people_left.getText().toString())-1));
-        }else{
-            people_left.setText(String.valueOf(Integer.parseInt(manager_update.returnPid()) - 1));
+
+        manager = new DBManager_reserv(mContext, "reserv_info.db", null, 1);
+        Log.e("info"," "+manager.returnName());
+        if(manager.returnName().equals("nothing")) isQueue = false;
+        else isQueue = true;
+        if(isQueue){
+            if(manager_update.returnPid().equals("nothing")){
+            }else if(manager_update.returnPid().equals("1000")){
+                people_left.setText(String.valueOf(Integer.parseInt(people_left.getText().toString())-1));
+            }else{
+                people_left.setText(String.valueOf(Integer.parseInt(manager_update.returnPid()) - 1));
+            }
+            manager_update.delete("delete from UPDATE_INFO");
         }
-        manager_update.delete("delete from UPDATE_INFO");
+
 
     }
 

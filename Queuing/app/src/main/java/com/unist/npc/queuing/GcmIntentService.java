@@ -102,7 +102,7 @@ public class GcmIntentService extends IntentService
         intent.putExtra("update", update);
         Log.e("CHECK", "update "+ update);
 
-        DBManager_update manager = new DBManager_update(getApplicationContext(), "update_info.db", null, 1);
+        DBManager_update manager = new DBManager_update(getApplicationContext(), "update_info2.db", null, 1);
         manager.insert("insert into UPDATE_INFO values ('"+update+"')");
 
         context.sendBroadcast(intent);
