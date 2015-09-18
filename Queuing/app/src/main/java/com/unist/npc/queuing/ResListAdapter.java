@@ -60,7 +60,7 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
         }
         Log.e("GETVIEW",": ");
         int width_image = (int) parent.getWidth();
-        int height_image = (int) 960;
+        int height_image = (int) 900;
         ResListItem res_item = items.get(position);
         Log.e("SIZE",":"+width_image+" "+height_image+" "+v.getWidth());
 

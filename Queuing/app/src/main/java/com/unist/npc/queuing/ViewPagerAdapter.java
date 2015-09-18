@@ -56,7 +56,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public CharSequence getPageTitle(int position) {
       //  Drawable img = ContextCompat.getDrawable(context,Tab_icons[position])
         Drawable image = context.getResources().getDrawable(Tab_icons[position]);
-        image.setBounds(0, 0, 60, 60);
+        image.setBounds(0, 0, 36, 36);
         SpannableString sb = new SpannableString(" ");
         ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
         sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
