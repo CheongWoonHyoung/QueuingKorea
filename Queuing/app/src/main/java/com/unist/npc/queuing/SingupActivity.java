@@ -77,11 +77,11 @@ public class SingupActivity extends Activity {
         }
 
         //ONLY FOR TEST AND DEBUGGING, TO BE DELETED
-/*        final Intent intent = new Intent(this, Owner_mainActivity.class);
+        final Intent intent = new Intent(this, Owner_mainActivity.class);
         startActivity(intent);
         finish();
-*/
-        requestMe();
+
+//        requestMe();
     }
 
     /**
