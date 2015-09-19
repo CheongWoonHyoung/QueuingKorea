@@ -1,25 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        <Button
+            android:id="@+id/checkBtn"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:text="확인"
+            android:textSize="40dp"
+            android:textColor="#ff000000"
+            android:background="#44ff2121"/>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="5">
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginBottom="40dp"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="20dp"
-            android:background="#00000000"
-            android:elevation="10dp" />
+            android:elevation="10dp">
 
-        <ImageView
+
+            </TextView>
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -29,7 +47,7 @@
             android:elevation="10dp"
             android:id="@+id/tb1"/>
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -40,7 +58,7 @@
             android:id="@+id/tb2"/>
 
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -68,7 +86,7 @@
         android:layout_height="match_parent"
         android:layout_weight="5">
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -78,7 +96,7 @@
             android:elevation="10dp"
             android:id="@+id/tb4"/>
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -88,7 +106,7 @@
             android:elevation="10dp"/>
 
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -97,7 +115,7 @@
             android:background="#21212121"
             android:elevation="10dp"/>
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -123,7 +141,7 @@
         android:layout_height="match_parent"
         android:layout_weight="5">
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -133,7 +151,7 @@
             android:background="#21212121"
             android:elevation="10dp"/>
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -143,7 +161,7 @@
             android:id="@+id/tb9"/>
 
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -152,7 +170,7 @@
             android:elevation="10dp"
             android:id="@+id/tb10"/>
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -177,7 +195,7 @@
         android:layout_height="match_parent"
         android:layout_weight="5">
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -188,7 +206,7 @@
             android:elevation="10dp"
             android:id="@+id/tb12"/>
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -199,7 +217,7 @@
             android:id="@+id/tb13"/>
 
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -209,7 +227,7 @@
             android:elevation="10dp"
             android:id="@+id/tb14"/>
 
-        <ImageView
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -221,5 +239,5 @@
 
     </LinearLayout>
 
-
+    </LinearLayout>
 </LinearLayout>
