@@ -46,6 +46,7 @@ import java.io.IOException;
 public class SingupActivity extends Activity {
     // For GCM Client variables
     public static final String PROPERTY_REG_ID = "registration_id";
+    public static final String OWN_PREFS ="OWNER_PREFS";
     // SharedPreferences에 저장할 때 key 값으로 사용됨.
     // SharedPreferences에 저장할 때 key 값으로 사용됨.
     private static final String PROPERTY_APP_VERSION = "1.0";
@@ -64,6 +65,8 @@ public class SingupActivity extends Activity {
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 
+        SharedPreferences.Editor editor = getSharedPreferences(OWN_PREFS, MODE_PRIVATE).edit();
+        SharedPreferences own_prefs = getSharedPreferences(OWN_PREFS, MODE_PRIVATE);
         super.onCreate(savedInstanceState);
         Log.d("FIRST","IT's THE FIRST");
         Session.initialize(this);
@@ -75,12 +78,20 @@ public class SingupActivity extends Activity {
             Log.i(TAG,"PASS");
             registerInBackground();
         }
-
+        if (own_prefs.contains("name") ==false) {
+            requestMe();
+        }
+        else {
+            Log.i("OWNER_INFO", " name : " + own_prefs.getString("name",null));
+            final Intent intent = new Intent(this, Owner_mainActivity.class);
+            startActivity(intent);
+            finish();
+        }
         //ONLY FOR TEST AND DEBUGGING, TO BE DELETED
-        final Intent intent = new Intent(this, Owner_mainActivity.class);
+       /* final Intent intent = new Intent(this, Owner_mainActivity.class);
         startActivity(intent);
         finish();
-
+*/
 //        requestMe();
     }
 

@@ -57,8 +57,8 @@ public class OwnerActivity extends AppCompatActivity {
         cus_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.e("pass","regid: "+items.get(position).cus_regid);
-                new HttpPostRequest_2().execute("out", items.get(position).cus_priority, owner_name,"",items.get(position).cus_name,items.get(position).cus_method,items.get(position).cus_regid);
+                Log.e("pass", "regid: " + items.get(position).cus_regid);
+                new HttpPostRequest_2().execute("out", items.get(position).cus_priority, owner_name, "", items.get(position).cus_name, items.get(position).cus_method, items.get(position).cus_regid);
                 items.remove(position);
                 adapter.notifyDataSetChanged();
             }
@@ -72,22 +72,24 @@ public class OwnerActivity extends AppCompatActivity {
 
             }
         });
-
+        reservDialog.setCanceledOnTouchOutside(false);
         reservDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialogInterface) {
-                if (items.size() == 0) {
-                    items.add(new CusListItem("1", reservDialog._name, reservDialog._number, "13:00", "OFFLINE",""));
+                if(reservDialog.focused==true) {
+                    if (items.size() == 0) {
+                        items.add(new CusListItem("1", reservDialog._name, reservDialog._number, "13:00", "OFFLINE", ""));
 
-                } else {
-                    items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), reservDialog._name, reservDialog._number, "13:00", "OFFLINE",""));
+                    } else {
+                        items.add(new CusListItem(String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), reservDialog._name, reservDialog._number, "13:00", "OFFLINE", ""));
 
+                    }
+                    adapter.notifyDataSetChanged();
+
+
+                    new HttpPostRequest_2().execute("in", String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), owner_name, reservDialog._number, reservDialog._name, "OFFLINE", "");
+                    reservDialog.focused=false;
                 }
-                adapter.notifyDataSetChanged();
-
-
-                new HttpPostRequest_2().execute("in", String.valueOf(Integer.parseInt(items.get(items.size() - 1).cus_priority) + 1), owner_name, reservDialog._number, reservDialog._name, "OFFLINE","");
-
             }
         });
         adduser_btn.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +99,6 @@ public class OwnerActivity extends AppCompatActivity {
 
             }
         });
-
 
     }
 
@@ -112,8 +113,6 @@ public class OwnerActivity extends AppCompatActivity {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
                 conn.setRequestMethod("POST");
-
-
 
                 InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
                 BufferedReader reader = new BufferedReader(tmp);

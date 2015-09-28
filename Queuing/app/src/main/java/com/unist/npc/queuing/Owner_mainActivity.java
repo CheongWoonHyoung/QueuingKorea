@@ -49,12 +49,14 @@ import java.io.IOException;
 public class Owner_mainActivity extends Activity {
 
     private Context mcontext;
+    private BackPressCloseHandler backPressCloseHandler;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.owner_main);
+        backPressCloseHandler = new BackPressCloseHandler(this);
 
         mcontext = this;
         Button reservation;
@@ -81,6 +83,10 @@ public class Owner_mainActivity extends Activity {
         });
 
 
-
+    }
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        backPressCloseHandler.onBackPressed();
     }
 }

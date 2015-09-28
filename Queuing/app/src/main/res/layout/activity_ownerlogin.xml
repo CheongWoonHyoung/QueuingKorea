@@ -23,7 +23,9 @@
             </LinearLayout>
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:clickable="true"
+                android:focusableInTouchMode="true" >
                 <LinearLayout
                     android:layout_width="200dp"
                     android:layout_height="200dp"
@@ -37,40 +39,57 @@
 
             </FrameLayout>
         </RelativeLayout>
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="200dp">
+            android:layout_height="200dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:clickable="true"
+            android:focusableInTouchMode="true" >
             <LinearLayout
-                android:id="@+id/owner_login"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_centerHorizontal="true"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:elevation="3dp"
+                >
+                <EditText
+                    android:id="@+id/own_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:hint="EMAIL"
+                    android:textSize="25dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="250dp"
+                android:layout_height="50dp"
+                android:elevation="3dp"
+                >
+                <EditText
+                    android:id="@+id/own_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:inputType="textPassword"
+                    android:imeOptions="actionDone"
+                    android:singleLine="true"
+                    android:hint="PASSWORD"
+                    android:textSize="25dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/own_login"
+                android:layout_width="250dp"
+                android:layout_height="50dp"
                 android:elevation="3dp"
                 >
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="LOGIN FOR OWNER"
+                    android:text="LOGIN"
                     android:textSize="25dp"/>
             </LinearLayout>
-            <LinearLayout
-                android:id="@+id/login"
-                android:background="@drawable/login"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_width="330dp"
-                android:layout_marginTop="70dp"
-                android:elevation="3dp"
-                android:layout_height="wrap_content">
-
-                <com.kakao.usermgmt.LoginButton
-                    android:elevation = "3dp"
-                    android:id="@+id/com_kakao_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"/>
-            </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>
