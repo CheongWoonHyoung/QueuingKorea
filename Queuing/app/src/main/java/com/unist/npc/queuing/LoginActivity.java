@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,14 @@ import com.kakao.kakaotalk.KakaoTalkService;
 import com.kakao.usermgmt.LoginButton;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 public class LoginActivity extends Activity {
@@ -98,6 +107,7 @@ public class LoginActivity extends Activity {
                 Log.d("OPEND", "OPEN");
                 // 세션 오픈후 보일 페이지로 이동
                 readProfile();
+                DBManager_regid manager_regid = new DBManager_regid(getApplicationContext(),"regid_info.db",null,1);
                 SharedPreferences prefs = getApplicationContext().getSharedPreferences("com.unist.npc.queuing.", Context.MODE_PRIVATE);
                 if(!prefs.contains("IsLogin"))
                     prefs.edit().putBoolean("IsLogin",true).apply();
@@ -105,10 +115,8 @@ public class LoginActivity extends Activity {
                     prefs.edit().remove("IsLogin").apply();
                     prefs.edit().putBoolean("IsLogin",true).apply();
                 }
+                new HttpPostRequest2().execute(manager_regid.returnRegid(), nickName);
 
-                final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
             }
 
             @Override
@@ -172,5 +180,51 @@ public class LoginActivity extends Activity {
         finish();
     }
 
+    private class HttpPostRequest2 extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected String doInBackground(String... info) {
+            String sResult = "Error";
+
+            try {
+                URL url = new URL("http://52.69.163.43/queuing/user_enroll.php");
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+                conn.setRequestMethod("POST");
+
+                String body = "regid=" + info[0] +"&"
+                        +"name=" + info[1];
+
+                OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
+                osw.write(body);
+                osw.flush();
+
+
+                InputStreamReader tmp = new InputStreamReader(conn.getInputStream(), "UTF-8");
+                BufferedReader reader = new BufferedReader(tmp);
+                StringBuilder builder = new StringBuilder();
+                String str;
+
+                while ((str = reader.readLine()) != null) {
+                    builder.append(str);
+                }
+                sResult     = builder.toString();
+                Log.e("enroll", sResult);
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return sResult;
+        }
+
+        @Override
+        protected void onPostExecute(String result){
+            final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+    }
 
 }

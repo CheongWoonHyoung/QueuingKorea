@@ -68,13 +68,15 @@ public class Tab1_restaurants extends Fragment {
     String countryISO ;
 
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
         readProfile();
-        new HttpPostRequest2().execute("APA91bGy1gqUVGGApf8FB3jIwyxf_M9E6neq2DL3fMTKihht6t2CBpuL2qKdQUDkk-knqHXkKCRSK2h0l6ANvVA-yAteAO9gw7A8FmA6gkqvccPqFQOAOcAnZKz_uavR715ty6Q1J47V",nickName);
+
 
 
 
@@ -93,8 +95,7 @@ public class Tab1_restaurants extends Fragment {
         adapter = new ResListAdapter(mContext,R.layout.res_list_item,items);
             res_listview.setEnabled(false);
         new HttpPostRequest().execute("");
-
-        res_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            res_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(mContext, RestaurantInfo.class);

@@ -77,11 +77,11 @@ public class SingupActivity extends Activity {
         }
 
         //ONLY FOR TEST AND DEBUGGING, TO BE DELETED
-        final Intent intent = new Intent(this, Owner_mainActivity.class);
+        /*final Intent intent = new Intent(this, Owner_mainActivity.class);
         startActivity(intent);
-        finish();
+        finish();*/
 
-//        requestMe();
+        requestMe();
     }
 
     /**
@@ -124,6 +124,7 @@ public class SingupActivity extends Activity {
 
             @Override
             public void onSessionClosedFailure(final APIErrorResult errorResult) {
+                Log.d("SUCCESS","onSessionClosedFailure");
                 redirectLoginActivity();
             }
 
@@ -226,7 +227,10 @@ public class SingupActivity extends Activity {
     }
 
     private void sendRegistrationIdToBackend() {
+
         Log.e(TAG, "RegId = " + regid);
+        DBManager_regid manager = new DBManager_regid(getApplicationContext(), "regid_info.db", null, 1);
+        manager.insert("insert into REGID_INFO values ('"+regid+"')");
     }
 
 }
