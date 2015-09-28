@@ -43,6 +43,9 @@
             android:name=".Owner_mainActivity"
             android:label="Owner_mainActivity"/>
         <activity
+            android:name=".OwnerLogin"
+            android:label="OwnerLogin"/>
+        <activity
             android:name=".TableActivity"
             android:label="TableActivity"/>
         <activity

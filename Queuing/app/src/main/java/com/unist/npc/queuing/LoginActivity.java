@@ -31,16 +31,17 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import org.w3c.dom.Text;
 
 
 public class LoginActivity extends Activity {
 
     private LinearLayout login;
+    private LinearLayout LoginOwner;
     private LoginButton kakaoLogin;
     private final SessionCallback mySessionCallback = new MySessionStatusCallback();
     private Session session;
     private BackPressCloseHandler backPressCloseHandler;
-
     String nickName;
     String profileImageURL ;
     String thumbnailURL ;
@@ -55,10 +56,10 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         Log.e("onCreate", "POP");
         backPressCloseHandler = new BackPressCloseHandler(this);
-
         //Session.initialize(getApplicationContext(), AuthType.KAKAO_TALK_EXCLUDE_NATIVE_LOGIN);//MAKE ONLY POSSIBLE FOR KAKAOLOGIN
         Session.initialize(this);
         kakaoLogin = (LoginButton) findViewById(R.id.com_kakao_login);
+        LoginOwner = (LinearLayout) findViewById(R.id.owner_login);
         login = (LinearLayout) findViewById(R.id.login);
         session = Session.getCurrentSession();
         session.addCallback(mySessionCallback);
@@ -75,7 +76,13 @@ public class LoginActivity extends Activity {
                 finish();
             }
         }
-
+        LoginOwner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, OwnerLogin.class);
+                startActivity(intent);
+            }
+        });
        /* login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
