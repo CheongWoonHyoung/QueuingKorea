@@ -157,6 +157,7 @@ public class TableActivity extends Activity {
     static Button check;
 
     int checkBtn_color;
+    Number_Customer mdialog;
     Check_system mSystem;
 
     @Override
@@ -275,6 +276,31 @@ public class TableActivity extends Activity {
         table15.setOnClickListener(new Click(15));
 
         check = (Button) findViewById(R.id.checkBtn);
+        mcontext = this;
+        mdialog = new Number_Customer(this);
+   //     mdialog.setCancelable(false);
+        mdialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+
+            }
+        });
+        mdialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                if(mdialog.No != 0)
+                Toast.makeText(mcontext,"People on a table: "+ String.valueOf(mdialog.No),Toast.LENGTH_LONG).show();
+            }
+        });
+
+        check.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(state_check){
+                    mdialog.show();
+                }
+            }
+        });
 
         mSystem = new Check_system();
 
@@ -562,4 +588,5 @@ public class TableActivity extends Activity {
 
 
     }
+
 }
