@@ -75,7 +75,7 @@ public class ResListAdapter extends ArrayAdapter<ResListItem> {
             //holder.res_distance.setTypeface(mTypeface);
             holder.res_waittime.setText(res_item.res_waittime);
             //holder.res_imgurl = res_item.res_imgurl;
-            Picasso.with(this.context).load(res_item.res_imgurl).resize(3000, height_image).centerCrop().into(holder.res_image);
+            Picasso.with(this.context).load(res_item.res_imgurl).fit().centerCrop().into(holder.res_image);
         }
         //setGlobalFont(parent);
 
