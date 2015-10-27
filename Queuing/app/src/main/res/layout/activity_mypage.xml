@@ -12,4 +12,73 @@
         android:textSize="30dp"
         android:clickable="true"
         android:background="?attr/selectableItemBackground"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="bottom"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NOTIFICATION"
+            android:textSize="12dp"
+            android:paddingBottom="2dp"
+            android:textStyle="bold"
+            android:paddingLeft="15dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#EEEEEE">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#D4D4D4">
+
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Set Notification"
+                android:layout_marginRight="50dp"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="15dp"/>
+            <LinearLayout
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center">
+                    <Switch
+                        android:id="@+id/switch_notification"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#D4D4D4">
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:id="@+id/kakao_btn"
+        android:gravity="center"
+        android:text="Kakao Link"
+        android:textSize="30dp"
+        android:clickable="true"
+        android:background="?attr/selectableItemBackground"/>
 </LinearLayout>

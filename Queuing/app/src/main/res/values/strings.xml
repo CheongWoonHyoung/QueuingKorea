@@ -25,4 +25,6 @@
     <string name="kakao_app_key">83905af5ef17e53719bd75dfc2c2e827</string>
     <string name="error_message_for_service_unavailable">error_in_Login</string>
     <string name="title_activity_owner">OwnerActivity</string>
+    <string name="kakao_scheme">kakao83905af5ef17e53719bd75dfc2c2e827</string>
+    <string name="kakaolink_host">kakaolink</string>
 </resources>

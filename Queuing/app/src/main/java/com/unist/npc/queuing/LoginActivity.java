@@ -113,8 +113,10 @@ public class LoginActivity extends Activity {
                 // 프로그레스바 종료
                 Log.d("OPEND", "OPEN");
                 // 세션 오픈후 보일 페이지로 이동
-                readProfile();
-                DBManager_regid manager_regid = new DBManager_regid(getApplicationContext(),"regid_info.db",null,1);
+                //readProfile();
+
+                Log.d("OPEND", "onHttpSuccess " + nickName);
+                final DBManager_regid manager_regid = new DBManager_regid(getApplicationContext(),"regid_info.db",null,1);
                 SharedPreferences prefs = getApplicationContext().getSharedPreferences("com.unist.npc.queuing.", Context.MODE_PRIVATE);
                 if(!prefs.contains("IsLogin"))
                     prefs.edit().putBoolean("IsLogin",true).apply();
@@ -122,7 +124,20 @@ public class LoginActivity extends Activity {
                     prefs.edit().remove("IsLogin").apply();
                     prefs.edit().putBoolean("IsLogin",true).apply();
                 }
-                new HttpPostRequest2().execute(manager_regid.returnRegid(), nickName);
+                //if(nickName != null) new HttpPostRequest2().execute(manager_regid.returnRegid(), nickName);
+                KakaoTalkService.requestProfile(new MyTalkHttpResponseHandler<KakaoTalkProfile>() {
+                    @Override
+                    public void onHttpSuccess(final KakaoTalkProfile talkProfile) {
+                        nickName = talkProfile.getNickName();
+                        profileImageURL = talkProfile.getProfileImageURL();
+                        thumbnailURL = talkProfile.getThumbnailURL();
+                        countryISO = talkProfile.getCountryISO();
+                        new HttpPostRequest2().execute(manager_regid.returnRegid(), nickName);
+                        // display
+
+                    }
+                });
+                finish();
 
             }
 
@@ -156,7 +171,6 @@ public class LoginActivity extends Activity {
                 thumbnailURL = talkProfile.getThumbnailURL();
                 countryISO = talkProfile.getCountryISO();
                 // display
-                Log.d("OPEND", "onHttpSuccess " + nickName);
 
             }
         });
@@ -227,9 +241,10 @@ public class LoginActivity extends Activity {
 
         @Override
         protected void onPostExecute(String result){
+            //finish();
             final Intent intent = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(intent);
-            finish();
+
         }
 
     }

@@ -26,6 +26,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <data android:scheme="@string/kakao_scheme"
+            android:host="@string/kakaolink_host" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" />

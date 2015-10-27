@@ -244,7 +244,6 @@ public class SingupActivity extends Activity {
 
     private void sendRegistrationIdToBackend() {
 
-        Log.e(TAG, "RegId = " + regid);
         DBManager_regid manager = new DBManager_regid(getApplicationContext(), "regid_info.db", null, 1);
         manager.insert("insert into REGID_INFO values ('"+regid+"')");
     }
